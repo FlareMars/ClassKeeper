@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="90dp"
+    android:background="@android:color/white"
+    android:layout_marginBottom="5dp"
+    >
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:id="@+id/header_view"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="15dp"
+        android:layout_gravity="center"
+        >
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/pic_testimg"
+            android:id="@+id/item_join_class_img"
+            />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:gravity="center_vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="计算机1301班 |"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:id="@+id/item_join_class_name"
+                android:layout_marginBottom="5dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/darker_gray"
+                android:text="40人"
+                android:id="@+id/item_join_class_people_num"
+                android:layout_marginLeft="2dp"
+                android:layout_marginStart="2dp"
+                android:layout_alignBottom="@+id/item_join_class_name"
+                android:layout_toRightOf="@+id/item_join_class_name"
+                android:layout_toEndOf="@+id/item_join_class_name" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="武汉理工大学 | 计算机学院"
+                android:textColor="#6f81e5"
+                android:layout_below="@id/item_join_class_name"
+                android:id="@+id/item_join_class_school_academy"
+                />
+        </RelativeLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="加入"
+                android:background="@drawable/selector_btn_send"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_gravity="center"
+                android:id="@+id/item_join_class_join"
+                />
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        />
+</LinearLayout>

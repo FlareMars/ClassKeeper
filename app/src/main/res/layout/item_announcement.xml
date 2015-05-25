@@ -1,0 +1,48 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/item_announcement_main_container"
+    android:background="@drawable/announcement_selected_bg"
+    tools:context="com.flaremars.classmanagers.uis.AnnouncementListFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:text="理工大本科生自主创新火热进行中"
+            android:id="@+id/item_announcement_title"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="根据教务处XXXX通知，请大家积极参加，把握机会锻炼技术"
+            android:lineSpacingMultiplier="1.2"
+            android:id="@+id/item_announcement_content"
+            android:paddingRight="10dp"
+            android:paddingEnd="10dp"
+            android:paddingLeft="0dp"
+            />
+        <TextView
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="周小强 1月13日 12:00"
+            android:textColor="#8b898a"
+            android:id="@+id/item_announcement_base_info"
+            android:layout_gravity="end"
+            />
+    </LinearLayout>
+
+</FrameLayout>

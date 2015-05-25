@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_base_btn"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:paddingLeft="10dp"
+    android:paddingStart="10dp"
+    android:paddingRight="10dp"
+    android:paddingEnd="10dp"
+    >
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:padding="5dp"
+        android:src="@drawable/temp_word"
+        android:id="@+id/item_upload_file_content_img"
+        />
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="4"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_upload_file_name"
+            android:singleLine="true"
+            android:textSize="12sp"
+            android:ellipsize="end"
+            android:textColor="@android:color/black"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_upload_file_size"
+            android:textSize="12sp"
+            android:textColor="@color/font_color"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:id="@+id/item_upload_file_base_info"
+            android:textColor="@color/font_color"
+            />
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:id="@+id/iv_item_upload_file_select"
+        android:src="@drawable/ic_selected_no"
+        android:padding="15dp"
+        />
+</LinearLayout>

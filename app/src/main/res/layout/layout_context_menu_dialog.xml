@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="置顶"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:id="@+id/tv_btn_context_menu_up"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#55000000"/>
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="删除"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:id="@+id/tv_btn_context_menu_delete"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#55000000"
+        android:id="@+id/tag1"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/rl_context_menu_rename_layout"
+        >
+
+        <EditText
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/et_context_menu_name"
+            android:singleLine="true"
+            android:background="@android:color/transparent"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/font_little_title"
+            android:layout_toLeftOf="@id/et_context_menu_name"
+            android:layout_toStartOf="@id/et_context_menu_name"
+            android:text="重命名"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/textView5" />
+        <View
+            android:layout_width="140dp"
+            android:layout_height="1dp"
+            android:background="#77000000"
+            android:layout_below="@+id/et_context_menu_name"
+            android:layout_toRightOf="@+id/textView5"
+            android:layout_toEndOf="@+id/textView5" />
+    </RelativeLayout>
+</LinearLayout>

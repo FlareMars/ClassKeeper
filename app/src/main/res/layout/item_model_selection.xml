@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:background="@drawable/bg_base_btn"
+    >
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_in_models_selection"
+        />
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="学生基本信息"
+            android:textColor="@color/font_color_blue"
+            android:textSize="20sp"
+            android:id="@+id/item_model_selection_name"
+            android:layout_marginBottom="3dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_model_selection_content"
+            android:text="姓名 性别 籍贯 手机 邮箱"
+            android:maxWidth="180dp"
+            />
+        </LinearLayout>
+</LinearLayout>

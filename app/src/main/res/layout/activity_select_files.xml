@@ -1,0 +1,112 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.flaremars.classmanagers.mainui.SelectFilesActivity"
+    android:orientation="vertical"
+    android:background="@color/normal_bg"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ui_header_height"
+        android:background="@drawable/topbar"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="5dp"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/iv_btn_select_files_back"
+            android:src="@drawable/selector_normal_back"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="12dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/fragment_container_titleTextView"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:text="选择文件"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            >
+            <TextView
+                android:layout_width="42dp"
+                android:layout_height="25dp"
+                android:background="@drawable/selector_btn_send"
+                android:text="确定"
+                android:textColor="@android:color/white"
+                android:gravity="center"
+                android:layout_gravity="center|end"
+                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
+                android:id="@+id/tv_btn_select_files_confirm"
+                />
+            </FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="-5dp"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:orientation="horizontal"
+                android:background="@drawable/bg_other_msg_section2"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="我的文件夹"
+                    android:textColor="@color/main_color"
+                    android:gravity="center"
+                    android:layout_gravity="center_vertical"
+                    />
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/darker_gray"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/btn_select_files_other_file"
+                    android:text="本机文件"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_gravity="center_vertical"
+                    />
+            </LinearLayout>
+
+
+            <ExpandableListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:groupIndicator="@null"
+                android:divider="@null"
+                android:childDivider="@null"
+                android:id="@+id/elv_select_files_content"
+                >
+
+            </ExpandableListView>
+        </LinearLayout>
+
+    </LinearLayout>

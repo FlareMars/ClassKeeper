@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/chatting_item_height" >
+
+    <LinearLayout
+        android:id="@+id/view_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/holder"
+        android:layout_width="120dp"
+        android:layout_height="@dimen/chatting_item_height"
+        android:background="@drawable/bkg"
+        android:orientation="horizontal"
+        >
+        <LinearLayout
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/slide_ll_delete"
+            android:gravity="center"
+            >
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_delete"
+                />
+
+            <TextView
+                android:id="@+id/slide_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@android:color/darker_gray"
+                android:layout_marginTop="5dp"
+                android:textSize="10sp"
+                android:text="删除" />
+            </LinearLayout>
+        <LinearLayout
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/slide_ll_up"
+            android:gravity="center"
+            >
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_up"
+                android:id="@+id/slide_up_down_img"
+                />
+
+            <TextView
+                android:id="@+id/slide_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@android:color/darker_gray"
+                android:layout_marginTop="5dp"
+                android:textSize="10sp"
+                android:text="置顶" />
+        </LinearLayout>
+    </LinearLayout>
+
+</merge>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="normal_bg">#e4e2e3</color>
+    <color name="main_bg">#fafafc</color>
+    <color name="font_color">#636162</color>
+    <color name="font_color_blue">#ff2e76b9</color>
+    <color name="thin_blue">#358bd8</color>
+    <color name="thin_thin_blue">#535ef8</color>
+    <color name="gray_divider">#11666563</color>
+    <color name="bg_normal">#ffe7e5e6</color>
+    <color name="font_little_title">#848283</color>
+    <color name="font_black">#333132</color>
+    <color name="main_header">#313fa0</color>
+    <color name="content_blue">#3f51b5</color>
+    <color name="thumbColor">#66aaaaaa</color>
+    <color name="feedback_bg">#20848283</color>
+    <color name="deep_green">#22ac38</color>
+    <color name="register_input_stroke">#8c97cb</color>
+    <color name="halfBlack">#65000000</color>
+    <color name="deep_main_color">#ff0079cd</color>
+    <color name="main_color">#008cee</color>
+    <color name="half_white">#44ffffff</color>
+    <color name="half_gray">#77e4e3e3</color>
+    <color name="bg_send_pressed">#ff228627</color>
+    <color name="add_button_color">#008cee</color>
+    <color name="chatting_item_pressed">#44aaaaaa</color>
+    <color name="new_font_announcement">#b3b2b2</color>
+</resources>

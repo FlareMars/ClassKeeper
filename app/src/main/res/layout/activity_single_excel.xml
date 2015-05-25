@@ -1,0 +1,129 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.flaremars.classmanagers.uis.ContainerActivity"
+    android:orientation="vertical"
+    android:background="@color/normal_bg"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ui_header_height"
+        android:background="@drawable/topbar"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="5dp"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/fragment_container_backView"
+            android:src="@drawable/selector_normal_back"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="12dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/fragment_container_titleTextView"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:text="班级中心"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            />
+    </LinearLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="-10dp"
+        android:id="@+id/fragment_container_contentView"
+        ><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.flaremars.classmanagers.uis.FillInfoCollectionFragment"
+        android:background="@android:color/white"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:background="#008cee"
+            android:paddingLeft="90dp"
+            android:paddingRight="70dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:id="@+id/tag_fill_table_header"
+            >
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_excel_blue"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:text="英语竞赛报名"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/tv_fragment_fill_info_collection_name"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_below="@id/tag_fill_table_header"
+            android:layout_marginTop="5dp"
+            >
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="12"
+                android:id="@+id/lv_fragment_fill_info_collection_content"
+                android:divider="@null"
+                >
+
+            </ListView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="#fefcfd"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_btn_send"
+                    android:text="确定"
+                    android:textColor="@android:color/white"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:id="@+id/tv_btn_fragment_fill_info_collection_confirm"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginRight="25dp"
+                    />
+            </FrameLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    </FrameLayout>
+</LinearLayout>

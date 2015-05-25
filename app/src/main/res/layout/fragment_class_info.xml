@@ -1,0 +1,167 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.flaremars.classmanagers.uis.ClassInfoFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="当前班级"
+            android:layout_margin="5dp"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_setting_card">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:lineSpacingExtra="3dp"
+                android:text="武汉理工大学 | 计算机学院\n计算机1301班 40人"
+                android:id="@+id/class_info_base"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="14dp"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="15dp"
+                android:textColor="#ff000000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="创建人"
+                android:id="@+id/textView"
+                android:layout_marginTop="15dp"
+                android:layout_below="@+id/class_info_base"
+                android:layout_marginLeft="70dp"
+                android:layout_marginStart="70dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginEnd="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="创建时间"
+                android:id="@+id/textView2"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/textView"
+                android:layout_alignRight="@+id/textView"
+                android:layout_alignEnd="@+id/textView" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="班级号"
+                android:id="@+id/textView4"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/textView2"
+                android:layout_alignRight="@+id/textView"
+                android:layout_alignEnd="@+id/textView"
+
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="管理员"
+                android:id="@+id/textView3"
+                android:layout_below="@+id/textView4"
+                android:layout_alignRight="@+id/textView2"
+                android:layout_alignEnd="@+id/textView2"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:text="李文豪"
+                android:layout_alignTop="@+id/textView"
+                android:layout_toRightOf="@+id/textView"
+                android:layout_toEndOf="@+id/textView"
+                android:id="@+id/class_info_creator"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="2014年10月10日"
+                android:textColor="#000000"
+                android:id="@+id/class_info_time"
+                android:layout_alignTop="@+id/textView2"
+                android:layout_toRightOf="@+id/textView"
+                android:layout_toEndOf="@+id/textView" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="151516"
+                android:textColor="#000000"
+                android:id="@+id/class_info_number"
+                android:layout_alignTop="@+id/textView4"
+                android:layout_toRightOf="@+id/textView"
+                android:layout_toEndOf="@+id/textView" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:paddingRight="5dp"
+                android:paddingLeft="0dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textColor="#303e9f"
+                android:id="@+id/class_info_managers"
+                android:maxLines="2"
+                android:layout_alignBaseline="@+id/textView3"
+                android:layout_alignBottom="@+id/textView3"
+                android:layout_alignLeft="@+id/class_info_number"
+                android:layout_alignStart="@+id/class_info_number" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text=">>切换班级"
+                android:textColor="#303e9f"
+                android:id="@+id/class_info_change"
+                android:padding="8dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginEnd="28dp"
+                android:layout_below="@+id/class_info_managers"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <com.flaremars.classmanagers.views.RoundImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/class_info_pic"
+        android:src="@drawable/pic_testimg"
+        android:layout_gravity="end"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginEnd="25dp"
+        />
+</FrameLayout>

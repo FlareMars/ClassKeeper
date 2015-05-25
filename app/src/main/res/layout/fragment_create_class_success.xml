@@ -1,0 +1,70 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.flaremars.classmanagers.uis.CreateClassSuccessFragment"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    >
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/succeed"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="13级瑜伽公选课一"
+        android:textColor="@color/font_color_blue"
+        android:id="@+id/fragment_create_success_name"
+        android:layout_gravity="center_horizontal"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/create_success_bg2"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="whut77055"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:id="@+id/fragment_create_success_id"
+            />
+
+        </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fragment_create_success_confirm_change"
+        android:text="切换至此班级"
+        android:textSize="16sp"
+        android:textColor="#aa848283"
+        android:layout_gravity="center"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="30dp"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+</LinearLayout>

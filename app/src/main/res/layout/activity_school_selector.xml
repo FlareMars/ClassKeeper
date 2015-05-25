@@ -1,0 +1,49 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context="com.flaremars.classmanagers.widget.SchoolSelectorActivity"
+    android:id="@+id/main_container"
+    android:gravity="center_horizontal"
+    android:background="@android:color/white"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/font_little_title"
+        android:text="湖北省"
+        android:layout_margin="10dp"
+        android:id="@+id/tv_school_selector_province"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:textColor="#70bdf2"
+        android:text="武汉理工大学 - 计算机学院"
+        android:id="@+id/tv_school_selector_school_academy"
+        />
+
+    <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="15dp"
+        app:baseColor="#bbebf0e5"
+        android:gravity="center"
+        android:singleLine="true"
+        android:maxLength="50"
+        android:id="@+id/actv_school_selector_input"
+        />
+
+
+</LinearLayout>

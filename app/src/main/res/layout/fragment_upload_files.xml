@@ -1,0 +1,53 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.flaremars.classmanagers.uis.UploadFilesFragment"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_other_msg_section2"
+        >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="我的文件夹"
+            android:textColor="@color/font_color_blue"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/btn_fragment_upload_file_other_file"
+            android:text="本机文件"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            />
+        </LinearLayout>
+
+
+    <ExpandableListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:groupIndicator="@null"
+        android:divider="@null"
+        android:childDivider="@null"
+        android:id="@+id/elv_fragment_upload_files_content"
+        >
+        
+        </ExpandableListView>
+</LinearLayout>

@@ -1,0 +1,97 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.flaremars.classmanagers.uis.RegisterOneFragment"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    >
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/cmicon_big"
+        android:layout_marginTop="70dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="班级管家"
+        android:textSize="18sp"
+        android:textColor="@color/font_color_blue"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="60dp"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:gravity="center_horizontal"
+        >
+        <EditText
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_register_inputbox"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:paddingLeft="15dp"
+            android:hint="输入手机号"
+            android:id="@+id/et_register_phone"
+            android:inputType="phone"
+            android:gravity="center_vertical"
+            />
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="发送验证码"
+            android:textColor="@android:color/white"
+            android:background="@drawable/selector_blue_btn"
+            android:textSize="16sp"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
+            android:gravity="center"
+            android:id="@+id/tv_btn_get_identifying_code"
+            android:layout_below="@+id/et_register_phone"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_alignRight="@+id/et_register_identifying_code"
+            android:layout_alignEnd="@+id/et_register_identifying_code" />
+        <EditText
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_register_inputbox"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:paddingLeft="15dp"
+            android:hint="填写验证码"
+            android:id="@+id/et_register_identifying_code"
+            android:inputType="number"
+            android:gravity="center_vertical"
+            android:layout_below="@+id/tv_btn_get_identifying_code"
+            android:layout_alignLeft="@+id/et_register_phone"
+            android:layout_alignStart="@+id/et_register_phone" />
+    </RelativeLayout>
+
+    <com.flaremars.classmanagers.views.MyRippleView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/mrv_next"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="下一步"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:background="@color/deep_green"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingLeft="70dp"
+            android:paddingRight="70dp"
+            android:id="@+id/tv_btn_register_next"
+            />
+    </com.flaremars.classmanagers.views.MyRippleView>
+
+</LinearLayout>

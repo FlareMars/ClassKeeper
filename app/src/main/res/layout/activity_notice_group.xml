@@ -1,0 +1,127 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NoticeGroupActivity"
+    android:orientation="vertical"
+    android:background="@color/normal_bg"
+    >
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/fl_notice_group_ui_content"
+            android:layout_marginTop="43dp"
+            >
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ui_header_height"
+            android:background="@color/main_color"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="5dp"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/btn_notice_group_ui_back"
+                android:src="@drawable/selector_normal_back"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="12dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/fragment_container_titleTextView"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:text="通知组"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                />
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:src="@mipmap/ic_groupsend_addpeople"
+                    android:padding="10dp"
+                    android:id="@+id/iv_btn_notice_group_ui_add"
+                    android:layout_gravity="end"
+                    android:background="@drawable/selector_white_btn"
+                    />
+            </FrameLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:layout_gravity="bottom"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            android:id="@+id/ll_input_layout"
+            android:visibility="gone"
+            >
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:id="@+id/iv_btn_chatting_emotion"
+                android:src="@mipmap/ic_textin_emotion"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginRight="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/selector_gray_btn"
+                android:visibility="invisible"
+                />
+            <EditText
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_chatting_iuputbox"
+                android:id="@+id/et_chatting_input"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:maxLines="3"
+                android:layout_marginBottom="5dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_btn_chatting_send"
+                android:background="@drawable/selector_btn_send"
+                android:textColor="@android:color/white"
+                android:padding="5dp"
+                android:text="发送"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="3dp"
+                android:layout_gravity="center_horizontal|bottom"
+                />
+        </LinearLayout>
+
+    </FrameLayout>
+</LinearLayout>

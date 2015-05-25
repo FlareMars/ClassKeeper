@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/fl_album_container"
+    >
+
+    <View
+        android:layout_width="182dp"
+        android:layout_height="182dp"
+        android:background="@drawable/bg_album2"
+        android:id="@+id/album_outer"
+        />
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_album2"
+        android:paddingBottom="7dp"
+        android:paddingRight="7dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="4dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
+        >
+        <ImageView
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:src="@drawable/default_album_background"
+            android:id="@+id/iv_item_album_background"
+            android:scaleType="centerCrop"
+            />
+        <LinearLayout
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical"
+            android:background="@color/main_color"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:paddingLeft="8dp"
+            android:paddingStart="8dp"
+            android:paddingRight="0dp"
+            android:paddingEnd="0dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:text="班级聚会"
+                android:id="@+id/tv_item_album_name"
+                android:layout_marginBottom="3dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:id="@+id/tv_item_album_info"
+                android:text="2015/3/5   10张"
+                android:textColor="#bbebf0e5"
+                />
+        </LinearLayout>
+    </FrameLayout>
+
+
+</FrameLayout>

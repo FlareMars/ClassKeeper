@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    >
+
+    <TextView
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/tv_item_info_collection_question"
+        android:textColor="@color/font_little_title"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="end"
+        />
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_item_info_collection_answer"
+        android:layout_marginRight="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_gravity="center_vertical"
+        android:singleLine="true"
+        />
+</LinearLayout>

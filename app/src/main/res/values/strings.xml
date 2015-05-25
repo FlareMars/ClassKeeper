@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="title_activity_test_material_menu">班级管家</string>
+    <string name="app_name">班级管家</string>
+    <string name="action_random">Just a random icon</string>
+    <string name="action_switch_custom">Use CustomView</string>
+    <string name="action_switch_home_icon">Use Home icon</string>
+    <string name="duration">DURATION</string>
+    <string name="animate_menu">ANIM MENU</string>
+    <string name="animate_arrow">ANIM ARROW</string>
+    <string name="animate_check">ANIM CHECK</string>
+    <string name="animate_x">ANIM X</string>
+    <string name="set_menu">SET MENU</string>
+    <string name="set_arrow">SET ARROW</string>
+    <string name="set_x">SET X</string>
+    <string name="set_check">SET CHECK</string>
+    <string name="title_activity_custom_view">Material menu</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_search">SearchActivity</string>
+    <string name="title_activity_class_info">ClassInfoActivity</string>
+    <string name="title_activity_create_class">CreateClassActivity</string>
+    <string name="title_activity_container">ContainerActivity</string>
+    <string name="title_activity_join_class">JoinClassActivity</string>
+    <string name="title_activity_chatting">ChattingActivity</string>
+    <string name="title_activity_notice_group">NoticeGroupActivity</string>
+    <string name="title_activity_select_files">SelectFilesActivity</string>
+    <string name="title_activity_browse_photo">BrowsePhotoActivity</string>
+    <string name="title_activity_feed_back_detail">FeedBackDetailActivity</string>
+    <string name="title_activity_single_excel">SingleExcelActivity</string>
+    <string name="title_activity_local_pictures">LocalPicturesActivity</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_feedback">FeedbackActivity</string>
+    <string name="title_activity_school_selector">SchoolSelectorActivity</string>
+    <string name="hint_search">请输入要搜索的文件名或联系人</string>
+
+</resources>

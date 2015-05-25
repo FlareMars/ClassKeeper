@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/main_color"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="5dp"
+            android:id="@+id/tv_notice_group_ui_members"
+            />
+    </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:background="#0181da"
+            android:layout_marginBottom="15dp"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@mipmap/ic_goupsend_msg"
+                android:layout_marginEnd="45dp"
+                android:layout_marginRight="45dp"
+                android:id="@+id/iv_btn_notice_group_ui_notice"
+                android:padding="10dp"
+                android:background="@drawable/selector_white_btn"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@mipmap/ic_groupsend_excel"
+                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
+                android:padding="10dp"
+                android:id="@+id/iv_btn_notice_group_ui_excel"
+                android:background="@drawable/selector_white_btn"
+                />
+
+        </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,55 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.flaremars.classmanagers.uis.BrowsePhotoActivity"
+    android:background="@android:color/black"
+    >
+
+    <com.flaremars.classmanagers.views.DragImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        android:id="@+id/iv_browse_photo_conten"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        android:id="@+id/iv_browse_photo_content"
+        android:layout_gravity="center"
+        />
+    <ImageView
+        android:layout_width="35dp"
+        android:layout_height="50dp"
+        android:padding="12dp"
+        android:src="@drawable/ic_back_thin"
+        android:id="@+id/iv_browse_photo_back"
+        android:background="@drawable/selector_white_btn"
+        />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="10dp"
+        android:layout_gravity="end"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_delete_for_photo"
+        android:id="@+id/iv_browse_photo_delete"
+        android:background="@drawable/selector_white_btn"
+        android:visibility="gone"
+        />
+
+    <com.flaremars.classmanagers.views.CircleLoadingView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/loading_picture_view"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        />
+</FrameLayout>

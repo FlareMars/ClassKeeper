@@ -1,0 +1,29 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.flaremars.classmanagers.uis.FeedbackDetailFragment"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="test"
+        android:textColor="@color/font_little_title"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:id="@+id/tv_fragment_info_collection_detail_title"
+        />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lv_fragment_info_collections_detail_content"
+        android:listSelector="@null"
+        >
+
+    </ListView>
+</LinearLayout>

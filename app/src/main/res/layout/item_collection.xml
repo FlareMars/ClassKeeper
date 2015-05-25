@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:background="@android:color/white"
+    >
+
+    <ImageView
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:id="@+id/iv_item_collection_img"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:id="@+id/tv_item_collection_name"
+            android:text="张小热"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:id="@+id/tv_item_collection_time"
+            android:text="15/3/9"
+            android:layout_toRightOf="@id/tv_item_collection_name"
+            android:layout_toEndOf="@id/tv_item_collection_name"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="3dp"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/pic"
+            android:layout_below="@id/tv_item_collection_name"
+            android:layout_marginTop="10dp"
+            android:id="@+id/iv_item_collection_pic"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:id="@+id/tv_item_collection_info"
+            android:layout_toRightOf="@id/iv_item_collection_pic"
+            android:layout_below="@id/tv_item_collection_name"
+            android:layout_marginTop="14dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            android:text="test"
+            />
+        </RelativeLayout>
+</LinearLayout>

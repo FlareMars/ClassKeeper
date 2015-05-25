@@ -1,0 +1,80 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.flaremars.classmanagers.uis.FeedbackActivity"
+    android:background="@color/normal_bg"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ui_header_height"
+        android:background="@drawable/topbar"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="5dp"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/fragment_container_backView"
+            android:src="@drawable/selector_normal_back"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="12dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/fragment_container_titleTextView"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:text="意见反馈"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            />
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+            <com.flaremars.classmanagers.views.CircleLoadingView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/fragment_container_loading_view"
+                android:padding="15dp"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                />
+        </FrameLayout>
+    </LinearLayout>
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="4"
+        android:id="@+id/feedback_main_content"
+        android:hint="所提出的建议或意见"
+        android:layout_margin="10dp"
+        />
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="4"
+        android:id="@+id/feedback_contact"
+        android:layout_margin="10dp"
+        android:hint="如果愿意，请留下联系方式"
+        />
+    <com.flaremars.classmanagers.views.ButtonRectangle
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/feedback_send"
+        android:text="提交反馈"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="20dp"
+        />
+
+</LinearLayout>

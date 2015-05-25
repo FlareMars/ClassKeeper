@@ -1,0 +1,20 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.flaremars.classmanagers.uis.AlbumsFragment"
+    android:background="@color/normal_bg"
+    >
+
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="2"
+        android:verticalSpacing="10dp"
+        android:id="@+id/gv_fragment_albums_content"
+        android:scrollbars="none"
+        android:layout_marginTop="5dp"
+        >
+        </GridView>
+
+</FrameLayout>

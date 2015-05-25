@@ -1,0 +1,52 @@
+<resources>
+
+    <style name="BrowsePhotoTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/ActionBarStyle</item>
+        <item name="actionBarItemBackground">@null</item>
+        <item name="actionButtonStyle">@style/ActionButtonStyle</item>
+        <item name="actionOverflowButtonStyle">@style/OverflowButtonStyle</item>
+        <item name="numberProgressBarStyle">@style/NumberProgressBar_Default</item>
+    </style>
+
+    <style name="ActionBarStyle" parent="Widget.AppCompat.ActionBar.Solid">
+        <item name="displayOptions">showTitle</item>
+        <item name="titleTextStyle">@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse</item>
+        <item name="android:background">#313fa0</item>
+    </style>
+
+    <style name="ActionButtonStyle" parent="Widget.AppCompat.ActionButton">
+        <item name="background">@drawable/action_bar_item_background</item>
+    </style>
+
+    <style name="OverflowButtonStyle" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="background">@drawable/action_bar_item_background</item>
+    </style>
+
+    <style name="menu_labels_style">
+        <item name="android:background">@drawable/fab_label_background</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="NumberProgressBar_Default">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+
+        <item name="max">100</item>
+        <item name="progress">0</item>
+
+        <item name="progress_unreached_color">#CCCCCC</item>
+        <item name="progress_reached_color">#3498DB</item>
+
+        <item name="progress_text_size">10sp</item>
+        <item name="progress_text_color">#3498DB</item>
+
+        <item name="progress_reached_bar_height">1.5dp</item>
+        <item name="progress_unreached_bar_height">0.75dp</item>
+    </style>
+</resources>

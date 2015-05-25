@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <dbname value="class_manager_db" />
+    <version value="17" />
+    <list>
+        <mapping class="com.flaremars.classmanagers.model.PictureObject"/>
+        <mapping class="com.flaremars.classmanagers.model.ClassObject"/>
+        <mapping class="com.flaremars.classmanagers.model.AnnouncementObject"/>
+        <mapping class="com.flaremars.classmanagers.model.MessageObject"/>
+        <mapping class="com.flaremars.classmanagers.model.SubClassObject"/>
+        <mapping class="com.flaremars.classmanagers.model.UserObject"/>
+        <mapping class="com.flaremars.classmanagers.model.FileObject"/>
+        <mapping class="com.flaremars.classmanagers.model.NoticeGroupObject"/>
+        <mapping class="com.flaremars.classmanagers.model.ManagerObject"/>
+        <mapping class="com.flaremars.classmanagers.model.ExcelModelObject"/>
+        <mapping class="com.flaremars.classmanagers.model.NoticeObject"/>
+        <mapping class="com.flaremars.classmanagers.model.ExcelObject"/>
+        <mapping class="com.flaremars.classmanagers.model.AlbumsObject"/>
+        <mapping class="com.flaremars.classmanagers.model.RecentMessageObject"/>
+        <mapping class="com.flaremars.classmanagers.model.RecentNoticeGroupMsg"/>
+        <mapping class="com.flaremars.classmanagers.model.ClassMemberObject"/>
+        <mapping class="com.flaremars.classmanagers.model.SubClassMemberObject"/>
+        <mapping class="com.flaremars.classmanagers.model.NoticeGroupMemberObject"/>
+        <mapping class="com.flaremars.classmanagers.model.ExcelFeedbackObject"/>
+        <mapping class="com.flaremars.classmanagers.model.NoticeFeedbackObject"/>
+        <mapping class="com.flaremars.classmanagers.model.ExcelTaskObject"/>
+        <mapping class="com.flaremars.classmanagers.model.NoticeTaskObject"/>
+        <mapping class="com.flaremars.classmanagers.model.UserPersonalInfo"/>
+        <mapping class="com.flaremars.classmanagers.model.LocalPhotoObject"/>
+        <mapping class="com.flaremars.classmanagers.model.LocalFileObject"/>
+    </list>
+</litepal>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:gravity="start"
+    >
+
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@mipmap/img_header1"
+        android:id="@+id/iv_chatting_file_others_header"
+        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_chatting_file_others_name"
+        android:text="张晓热"
+        android:layout_toRightOf="@id/iv_chatting_file_others_header"
+        android:layout_toEndOf="@+id/iv_chatting_file_others_header"
+        />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="7dp"
+        android:background="@drawable/bg_chatting_box_others_selector"
+        android:id="@+id/tag_content"
+        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/tv_chatting_file_others_name"
+        android:layout_toRightOf="@id/iv_chatting_file_others_header"
+        android:layout_toEndOf="@id/iv_chatting_file_others_header"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/bg_rectangle_with_stroke"
+            android:id="@+id/ll_chatting_item_others_file_container"
+            >
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/default_ic_file"
+                android:layout_marginRight="15dp"
+                android:layout_marginEnd="15dp"
+                android:id="@+id/iv_chatting_file_others_type"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="80dp"
+                android:text="“英语竞赛报名名单”"
+                android:id="@+id/tv_chatting_file_others_content"
+                android:layout_gravity="center_vertical"
+                />
+        </LinearLayout>
+    </FrameLayout>
+</RelativeLayout>
