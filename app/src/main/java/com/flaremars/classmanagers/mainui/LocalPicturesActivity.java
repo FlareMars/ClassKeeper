@@ -77,7 +77,6 @@ public class LocalPicturesActivity extends FragmentActivity implements LoaderMan
             itemWidth = (screenWidth - blankFieldWidth) / 3;
         }
 
-        //一周内
         calendar = Calendar.getInstance(Locale.CHINA);
         calendar.add(Calendar.WEEK_OF_MONTH, -1);
 
