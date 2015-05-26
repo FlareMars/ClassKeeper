@@ -1,6 +1,7 @@
 package com.flaremars.classmanagers.uis;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -593,16 +594,28 @@ public class JoinClassActivity extends FragmentActivity {
                                                                 });
                                                             }
                                                         });
+                                                        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                                            @Override
+                                                            public void onDismiss(DialogInterface dialog) {
+
+                                                                Intent intent = new Intent(JoinClassActivity.this, MainActivity.class);
+                                                                startActivity(intent);
+
+                                                                Intent finishActivityBroadCast = new Intent("FRAGMENT_TO_FINISH");
+                                                                sendBroadcast(finishActivityBroadCast);
+                                                                JoinClassActivity.this.finish();
+                                                            }
+                                                        });
                                                         dialog.show();
+                                                    } else {
+
+                                                        Intent intent = new Intent(JoinClassActivity.this, MainActivity.class);
+                                                        startActivity(intent);
+
+                                                        Intent finishActivityBroadCast = new Intent("FRAGMENT_TO_FINISH");
+                                                        sendBroadcast(finishActivityBroadCast);
+                                                        JoinClassActivity.this.finish();
                                                     }
-
-                                                    Intent intent = new Intent(JoinClassActivity.this, MainActivity.class);
-                                                    startActivity(intent);
-
-                                                    Intent finishActivityBroadCast = new Intent("FRAGMENT_TO_FINISH");
-                                                    sendBroadcast(finishActivityBroadCast);
-                                                    JoinClassActivity.this.finish();
-
                                                 } else {
                                                     Log.e("TAG-Join", e.getMessage());
                                                     NormalUtils.INSTANCE.showError(JoinClassActivity.this, e);
