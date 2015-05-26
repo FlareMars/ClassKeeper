@@ -164,11 +164,12 @@ public class CMConversationHandler extends AVIMConversationEventHandler {
                                         messageObject.setInUserObject(newUserObject);
                                         messageObject.setType(MsgType.NORMAL_OTHERS.ordinal());
                                         messageObject.setOwnerId(CMConversationHandler.this.userId);
+                                        messageObject.save();
 
                                         //记录RecentMessage
                                         MessageUtils.INSTANCE.updateRecentMessage(RecentMessageObject.TYPE_GROUP, "normal:" + "大家好，我是" + newUserObject.getUserRealName() + ",我来啦~",
-                                                targetSubClass.getId(), newUserObject, targetSubClass, targetClass.getClassID(),userId);
-                                        messageObject.save();
+                                                targetSubClass.getId(), newUserObject, targetSubClass, targetClass.getClassID(),CMConversationHandler.this.userId);
+
                                         Intent data = new Intent(CMService.HAS_NEW_MESSAGES);
                                         CMApplication.GLOBAL_CONTEXT.sendBroadcast(data);
                                     }

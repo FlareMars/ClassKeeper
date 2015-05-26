@@ -79,7 +79,7 @@ public class CMApplication extends LitePalApplication{
                             return;
                         }
                         Log.e("TAG", e.getMessage());
-                        if (hasToast) {
+                        if (!hasToast) {
                             hasToast = true;
                             Toast.makeText(GLOBAL_CONTEXT, "当前网络状态不佳,请检查网络配置", Toast.LENGTH_SHORT).show();
                         }
