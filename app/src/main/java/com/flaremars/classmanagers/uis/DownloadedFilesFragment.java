@@ -20,6 +20,7 @@ import com.flaremars.classmanagers.model.FileObject;
 import com.flaremars.classmanagers.model.FileType;
 import com.flaremars.classmanagers.utils.BitmapUtils;
 import com.flaremars.classmanagers.utils.FileUtils;
+import com.flaremars.classmanagers.utils.NormalUtils;
 
 import org.litepal.crud.DataSupport;
 
@@ -238,27 +239,13 @@ public class DownloadedFilesFragment extends BaseFragment {
             viewHolder.baseInfoTextView.setText(item.getSource() + " " +
                     DATE_FORMAT.format(item.getUpdateTime()));
             viewHolder.nameTextView.setText(item.getName());
-            viewHolder.sizeTextView.setText(sizeToString(item.getSize()));
+            viewHolder.sizeTextView.setText(NormalUtils.INSTANCE.sizeToString(item.getSize()));
             return convertView;
         }
 
         @Override
         public boolean isChildSelectable(int groupPosition, int childPosition) {
             return true;
-        }
-    }
-
-    private String sizeToString(long size) {
-        int numForM = 0;
-        int numForK = 0;
-
-        numForM = (int)(size / (1024 * 1024));
-        numForK = (int)(size / 1024);
-
-        if (numForM > 0) {
-            return numForM + "MB";
-        } else {
-            return numForK + "KB";
         }
     }
 

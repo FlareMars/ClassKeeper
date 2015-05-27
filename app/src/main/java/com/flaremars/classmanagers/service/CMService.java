@@ -28,6 +28,7 @@ import com.flaremars.classmanagers.model.UserObject;
 import com.flaremars.classmanagers.p2msg.IProcessMsg;
 import com.flaremars.classmanagers.p2msg.ProcessChattingMessage;
 import com.flaremars.classmanagers.p2msg.ProcessExcelFeedback;
+import com.flaremars.classmanagers.p2msg.ProcessFileFromComputer;
 import com.flaremars.classmanagers.p2msg.ProcessNewExcel;
 import com.flaremars.classmanagers.p2msg.ProcessNewFile;
 import com.flaremars.classmanagers.p2msg.ProcessNewNotice;
@@ -75,6 +76,7 @@ public class CMService extends Service{
         PROCESS_MSG_CLASS_NAMES.put(9, ProcessExcelFeedback.class.getName());
         PROCESS_MSG_CLASS_NAMES.put(10, ProcessChattingMessage.class.getName());
         PROCESS_MSG_CLASS_NAMES.put(11, ProcessQuitGroup.class.getName());
+        PROCESS_MSG_CLASS_NAMES.put(12, ProcessFileFromComputer.class.getName());
     }
 
     //获取班级的最新头像，所在子群的名字，联系人的头像
@@ -290,10 +292,20 @@ public class CMService extends Service{
             @Override
             public void run() {
                 if (!CMApplication.isClientOpened) {
+                    if (userObjectForMe == null) {
+                        SharedPreferences preferences = getSharedPreferences(AppConst.SHARE_PREFERENCE_NAME,MODE_PRIVATE);
+                        List<UserObject> objects = DataSupport.where("userId=?", preferences.getString(AppConst.USER_ID, "")).find(UserObject.class);
+                        if (objects.size() > 0) {
+                            userObjectForMe = objects.get(0);
+                        } else {
+                            userObjectForMe = new UserObject();
+                            userObjectForMe.setUserId(preferences.getString(AppConst.USER_ID, ""));
+                        }
+                    }
                     CMApplication.openIMClient(userObjectForMe.getUserId());
                 }
             }
-        },30,60,TimeUnit.SECONDS);
+        },40,60,TimeUnit.SECONDS);
 //        messageReceiver = new CMMessageReceiver();
 //        IntentFilter filter = new IntentFilter("cm.action.MESSAGE");
 //        registerReceiver(messageReceiver,filter);

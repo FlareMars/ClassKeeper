@@ -211,7 +211,6 @@ public class FileUtils {
             newestLocalFile.setTime(new Date().getTime());
             newestLocalFile.save();
 
-            //TODO 添加本地图片
         } else {
             newestLocalFile = localFiles.get(0);
             newestLocalFile.setSource(source);
