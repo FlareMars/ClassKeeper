@@ -25,8 +25,7 @@ public class StartUpActivity extends Activity {
 
         TextView secondTextView = (TextView) findViewById(R.id.second_text_view);
         secondTextView.setTypeface(tf);
-        ImageView imageView = (ImageView) findViewById(R.id.imageView);
-        imageView.postDelayed(new Runnable() {
+        secondTextView.postDelayed(new Runnable() {
             @Override
             public void run() {
                 Intent intent = new Intent(StartUpActivity.this,BeforeMainActivity.class);
@@ -34,6 +33,6 @@ public class StartUpActivity extends Activity {
 
                 StartUpActivity.this.finish();
             }
-        },3000);
+        },2500);
     }
 }
