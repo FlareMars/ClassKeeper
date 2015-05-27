@@ -36,7 +36,6 @@ public class ProcessFileFromComputer implements IProcessMsg{
                 @Override
                 public void done(final AVFile avFile, AVException e) {
                     if (e == null) {
-
                         final String fileName = avFile.getOriginalName();
                         final long fileSize = avFile.getSize();
                         final int fileType = FileUtils.getInstance().getFileType(fileName).ordinal();
