@@ -24,6 +24,7 @@ import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.LogInCallback;
+import com.avos.avoscloud.RequestPasswordResetCallback;
 import com.avos.avoscloud.SaveCallback;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
@@ -191,8 +192,6 @@ public class LoginFragment extends Fragment {
                                     public void done(AVIMClient avimClient, AVException e) {
                                         if (e == null) {
                                             initToLogin(user,username,password);
-                                        } else {
-                                            NormalUtils.INSTANCE.showError(context,e);
                                         }
                                     }
                                 });
@@ -216,7 +215,10 @@ public class LoginFragment extends Fragment {
         forgetPasswordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //获取设备表对应的用户，或者短信修改密码
+                Intent intent = new Intent(context,ResetPasswordActivity.class);
+                startActivity(intent);
+                usernameEt.setText("");
+                passwordEt.setText("");
             }
         });
 
