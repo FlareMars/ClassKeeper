@@ -398,6 +398,12 @@ public class JoinClassActivity extends FragmentActivity {
                 if (e == null) {
                     //进入全员会话(子群)
                     {
+                        if (!CMApplication.isClientOpened) {
+                            CMApplication.openIMClient(userId);
+                            NormalUtils.INSTANCE.showToast(JoinClassActivity.this,"当前网络状态不佳，请稍候重试");
+                            return;
+                        }
+
                         AVIMConversationQuery query1 = CMApplication.imClient.getQuery();
                         query1.whereEqualTo("objectId", targetClass.getString("allMembersConversation"));
                         query1.findInBackground(new AVIMConversationQueryCallback() {
@@ -617,16 +623,19 @@ public class JoinClassActivity extends FragmentActivity {
                                                         JoinClassActivity.this.finish();
                                                     }
                                                 } else {
+                                                    progressDialog.dismiss();
                                                     Log.e("TAG-Join", e.getMessage());
                                                     NormalUtils.INSTANCE.showError(JoinClassActivity.this, e);
                                                 }
                                             }
                                         });
                                     } else {
+                                        progressDialog.dismiss();
                                         Log.e("TAG", "寻找全员子群出错");
                                     }
                                 } else {
 
+                                    progressDialog.dismiss();
                                     Log.e("TAG", e.getMessage());
                                     NormalUtils.INSTANCE.showError(JoinClassActivity.this, e);
                                 }
@@ -634,6 +643,7 @@ public class JoinClassActivity extends FragmentActivity {
                         });
                     }
                 } else {
+                    progressDialog.dismiss();
                     NormalUtils.INSTANCE.showError(JoinClassActivity.this, e);
                 }
             }

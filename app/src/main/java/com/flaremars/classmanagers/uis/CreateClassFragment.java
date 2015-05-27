@@ -220,12 +220,20 @@ public class CreateClassFragment extends BaseFragment {
                 AVCloud.callFunctionInBackground("getClassCode", parameters, new FunctionCallback<String>() {
                     public void done(final String result, AVException e) {
                         if (e == null) {
+
+                            if (!CMApplication.isClientOpened) {
+                                CMApplication.openIMClient(creator.getUserId());
+                                NormalUtils.INSTANCE.showToast(getContainerActivity(),"当前网络状态不佳，请稍候重试");
+                                return;
+                            }
+
                             List<String> memberIds = new ArrayList<>();
                             memberIds.add(creator.getUserId());
 
                             Map<String, Object> attr = new HashMap<>();
                             attr.put("type", AppConst.ConversationType_Group);
                             final String academy = academySelectedTextView.getText().toString();
+
                             CMApplication.imClient.createConversation(memberIds, "【" + newClassName + "】" + "全体成员",
                                     attr, new AVIMConversationCreatedCallback() {
                                         @Override
