@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.flaremars.classmanagers.mainui.MainActivity;
 import com.flaremars.classmanagers.model.ClassObject;
 import com.flaremars.classmanagers.model.MessageConst;
 import com.flaremars.classmanagers.model.MessageObject;
@@ -35,7 +36,6 @@ public class ProcessChattingMessage implements IProcessMsg {
                 messageObject.setTime(new Date());
                 messageObject.setRead(false);
 
-                //TODO 如果深度重新登陆，会造成数据完全丢失，因为刚好打开client，数据到来后，但没有相应本地数据支持保存
                 List<UserObject> temp = DataSupport.where("userID=?", content.getString(MessageConst.CONTENT_FROM_ID)).
                         find(UserObject.class);
                 if (temp.size() == 0) {
@@ -149,7 +149,11 @@ public class ProcessChattingMessage implements IProcessMsg {
             } else {
                 name = targetUser.getUserRealName();
                 recentMessageObject.setImgPath(targetUser.getImgId());
-                NotificationUtils.INSTANCE.toNotify(targetUser.getUserRealName() + ": " + content);
+
+                if (!MainActivity.BASE_GLOBAL_DATA.getCurClassID().equals("") &&
+                        classID.equals(MainActivity.BASE_GLOBAL_DATA.getCurClassID())) {
+                    NotificationUtils.INSTANCE.toNotify(targetUser.getUserRealName() + ": " + content);
+                }
             }
             recentMessageObject.setName(name);
             recentMessageObject.update(recentMessageObject.getId());
