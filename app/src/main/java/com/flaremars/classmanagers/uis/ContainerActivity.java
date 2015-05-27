@@ -32,6 +32,7 @@ import com.flaremars.classmanagers.model.DataWrapper;
 import com.flaremars.classmanagers.model.ExcelFeedbackObject;
 import com.flaremars.classmanagers.model.ExcelTaskObject;
 import com.flaremars.classmanagers.model.FileObject;
+import com.flaremars.classmanagers.model.FileType;
 import com.flaremars.classmanagers.model.FragmentConst;
 import com.flaremars.classmanagers.model.ManagerObject;
 import com.flaremars.classmanagers.model.MessageConst;
@@ -297,7 +298,28 @@ public class ContainerActivity extends FragmentActivity {
                 }
 
                 String result = ExcelExportor.getInstance().toExcel(answerArray,excelTaskObject);
-                NormalUtils.INSTANCE.showToast(ContainerActivity.this,"制表完成，表格存于 : " + result);
+
+                String targetName = excelTaskObject.getName() + ".xls";
+                List<FileObject> temp = DataSupport.where("name=?",targetName).find(FileObject.class);
+                if (temp.size() == 0) {
+                    FileObject newFileObject = new FileObject();
+                    newFileObject.setTime(new Date());
+                    newFileObject.setPath(result);
+                    newFileObject.setUpdateTime(new Date());
+                    newFileObject.setName(excelTaskObject.getName() + ".xls");
+                    newFileObject.setSource("信息录制制表");
+                    newFileObject.setType(FileType.DOCUMENT.ordinal());
+                    newFileObject.setSize(new File(result).length());
+                    newFileObject.save();
+                } else {
+                    FileObject fileObject = temp.get(0);
+                    fileObject.setUpdateTime(new Date());
+                    fileObject.setTime(new Date());
+                    fileObject.setSize(new File(fileObject.getPath()).length());
+                    fileObject.update(fileObject.getId());
+                }
+
+                NormalUtils.INSTANCE.showToast(ContainerActivity.this,"制表完成，可到“已下载”中查看");
                 FileUtils.getInstance().openFile(new File(result),ContainerActivity.this);
             }
         });
