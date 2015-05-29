@@ -41,6 +41,9 @@ public class ProcessFileFromComputer implements IProcessMsg{
                         final int fileType = FileUtils.getInstance().getFileType(fileName).ordinal();
 
                         String infoFormat = "文件名称 : %s \n 文件大小 : %s";
+                        if (MainActivity.MainActivityInstance == null) {
+                            return;
+                        }
                         final Dialog dialog = new Dialog(MainActivity.MainActivityInstance, "待接收文件",
                                 String.format(infoFormat, avFile.getOriginalName(), NormalUtils.INSTANCE.sizeToString(avFile.getSize())));
                         dialog.addCancelButton("取消");

@@ -224,6 +224,7 @@ public class CreateClassFragment extends BaseFragment {
                             if (!CMApplication.isClientOpened) {
                                 CMApplication.openIMClient(creator.getUserId());
                                 NormalUtils.INSTANCE.showToast(getContainerActivity(),"当前网络状态不佳，请稍候重试");
+                                createButton.setEnabled(true);
                                 return;
                             }
 
