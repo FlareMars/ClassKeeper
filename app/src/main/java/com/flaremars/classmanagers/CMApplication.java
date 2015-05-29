@@ -3,6 +3,7 @@ package com.flaremars.classmanagers;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.avos.avoscloud.AVCloud;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVObject;
@@ -45,6 +46,7 @@ public class CMApplication extends LitePalApplication{
         AVObject.registerSubclass(ICMAlbum.class);
 
         AVOSCloud.setNetworkTimeout(5000);
+//        AVCloud.setProductionMode(false); //调用测试环境云代码
         AVOSCloud.setDebugLogEnabled(true);
         AVOSCloud.initialize(this, "q77fhkht4neg4ixnybwjnjmodatcoxy4wplq6ocb9lrzy5hs", "vhvdk35bg5p6zsxdsp5boqz2hckljc2djbc7c12834bdj5mv");
 
