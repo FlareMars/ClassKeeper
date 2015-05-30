@@ -32,6 +32,7 @@ import com.flaremars.classmanagers.model.PictureObject;
 import com.flaremars.classmanagers.model.UserPersonalInfo;
 import com.flaremars.classmanagers.utils.BitmapUtils;
 import com.flaremars.classmanagers.utils.FlareBitmapUtils;
+import com.flaremars.classmanagers.utils.LocalDataBaseHelper;
 import com.flaremars.classmanagers.utils.NormalUtils;
 import com.flaremars.classmanagers.utils.UploadUtils;
 import com.fourmob.datetimepicker.date.DatePickerDialog;
@@ -74,26 +75,25 @@ public class PersonalCenterFragment extends BaseFragment implements DatePickerDi
     private AVObject cmUserInfo;
 
     public PersonalCenterFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//        Bmob.initialize(getContainerActivity(), AppConst.APP_ID);
         BitmapUtils.INSTANCE.initBitmapUtils(getContainerActivity());
 
         View view = inflater.inflate(R.layout.fragment_personal_center, container, false);
-        ExpandableListView listView = (ExpandableListView) view.findViewById(R.id.fragment_personal_center_classes_list);
         sexEditText = (EditText) view.findViewById(R.id.fragment_personal_center_sex);
         birthdayTextView = (TextView) view.findViewById(R.id.fragment_personal_center_birthday);
         phoneEditText = (EditText) view.findViewById(R.id.fragment_personal_center_phone);
         headerImageView = (ImageView) view.findViewById(R.id.fragment_personal_center_img);
-        TextView nameTextView = (TextView) view.findViewById(R.id.fragment_personal_center_name);
-        TextView idTextView = (TextView) view.findViewById(R.id.fragment_personal_center_id);
-        TextView baseinfoTextView = (TextView) view.findViewById(R.id.fragment_personal_center_base_info);
         ageTextView = (TextView) view.findViewById(R.id.fragment_personal_center_age);
         constellationTextView = (TextView) view.findViewById(R.id.fragment_personal_center_constellation);
+        ExpandableListView listView = (ExpandableListView) view.findViewById(R.id.fragment_personal_center_classes_list);
+        TextView nameTextView = (TextView) view.findViewById(R.id.fragment_personal_center_name);
+        TextView idTextView = (TextView) view.findViewById(R.id.fragment_personal_center_id);
+        TextView baseInfoTextView = (TextView) view.findViewById(R.id.fragment_personal_center_base_info);
         TextView classesTextView = (TextView) view.findViewById(R.id.fragment_personal_center_classes);
 
         SharedPreferences preferences = getContainerActivity().getSharedPreferences(AppConst.SHARE_PREFERENCE_NAME,Context.MODE_PRIVATE);
@@ -113,17 +113,16 @@ public class PersonalCenterFragment extends BaseFragment implements DatePickerDi
                         cmUserInfo = list.get(0);
                     }
                 } else {
-                    NormalUtils.INSTANCE.showError(getContainerActivity(), e);
+                    NormalUtils.INSTANCE.showErrorLog(getContainerActivity(),e);
                 }
             }
         });
 
-        if (imgId == null || imgId.equals("")) {
+        //头像显示逻辑
+        if (imgId.equals("")) {
             headerImageView.setImageResource(R.drawable.default_ic_contact);
         } else {
-            PictureObject pictureObject = DataSupport.where("pictureId=?",imgId).find(PictureObject.class).get(0);
-            FlareBitmapUtils.INSTANCE.loadBitmap(headerImageView, pictureObject);
-//            headerImageView.setImageResource(R.drawable.default_ic_contact);
+            FlareBitmapUtils.INSTANCE.loadBitmap(headerImageView, imgId);
         }
 
         nameTextView.setText(realName);
@@ -142,7 +141,7 @@ public class PersonalCenterFragment extends BaseFragment implements DatePickerDi
             userPersonalInfo = temp.get(0);
         }
 
-        baseinfoTextView.setText(userPersonalInfo.getSchool() + " | " + userPersonalInfo.getAcademy());
+        baseInfoTextView.setText(userPersonalInfo.getSchool() + " | " + userPersonalInfo.getAcademy());
         Date birthday = userPersonalInfo.getBirthday();
         Calendar today = Calendar.getInstance(Locale.CHINA);
         Calendar birthdayCalendar = null;
@@ -197,10 +196,6 @@ public class PersonalCenterFragment extends BaseFragment implements DatePickerDi
             }
         });
 
-
-
-        final ImageView sexConfirmIvBtn = (ImageView) view.findViewById(R.id.iv_btn_sex_confirm);
-        final ImageView sexCancelIvBtn = (ImageView) view.findViewById(R.id.iv_btn_sex_cancel);
         final ImageView phoneConfirmIvBtn = (ImageView) view.findViewById(R.id.iv_btn_phone_confirm);
         final ImageView phoneCancelIvBtn = (ImageView) view.findViewById(R.id.iv_btn_phone_cancel);
 
@@ -212,12 +207,17 @@ public class PersonalCenterFragment extends BaseFragment implements DatePickerDi
             }
         });
 
+        //修改性别
         sexEditText.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-//                sexCancelIvBtn.setVisibility(View.VISIBLE);
-//                sexConfirmIvBtn.setVisibility(View.VISIBLE);
-//                sexEditText.setInputType(EditorInfo.TYPE_CLASS_TEXT);
+                String target = "男";
+                if (sexEditText.getText().toString().equals("男")) {
+                    target = "女";
+                }
+                sexEditText.setText(target);
+                userPersonalInfo.setSex(target);
+                userPersonalInfo.update(userPersonalInfo.getId());
                 return false;
             }
         });
@@ -247,34 +247,6 @@ public class PersonalCenterFragment extends BaseFragment implements DatePickerDi
 //                return false;
 //            }
 //        });
-
-        sexCancelIvBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences preferences = getContainerActivity().getSharedPreferences(AppConst.SHARE_PREFERENCE_NAME,Context.MODE_PRIVATE);
-                String source = preferences.getString(AppConst.USER_SEX,"男");
-                sexEditText.setText(source);
-                sexCancelIvBtn.setVisibility(View.GONE);
-                sexConfirmIvBtn.setVisibility(View.GONE);
-                sexEditText.setInputType(EditorInfo.TYPE_NULL);
-            }
-        });
-
-        sexConfirmIvBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String input = sexEditText.getText().toString();
-                if (!input.equals("男") && !input.equals("女")) {
-                    Toast.makeText(getContainerActivity(),"对不对，我们只接受“男”或“女”的性别",Toast.LENGTH_LONG).show();
-                } else {
-                    userPersonalInfo.setSex(input);
-                    userPersonalInfo.update(userPersonalInfo.getId());
-                    sexCancelIvBtn.setVisibility(View.GONE);
-                    sexConfirmIvBtn.setVisibility(View.GONE);
-                    sexEditText.setInputType(EditorInfo.TYPE_NULL);
-                }
-            }
-        });
 
         phoneCancelIvBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -327,13 +299,16 @@ public class PersonalCenterFragment extends BaseFragment implements DatePickerDi
 
     }
 
+    public static String getConstellation(int month, int day) {
+        return day < dayArr[month - 1] ? constellationArr[month - 1] : constellationArr[month];
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         int ACTION_GET_HEADER = 7;
         if (requestCode == ACTION_LOAD_IMAGE) {
             if (resultCode == Activity.RESULT_OK && data != null) {
-                //TODO 修改裁剪参数
                 Intent intent = new Intent("com.android.camera.action.CROP");
                 intent.setDataAndType(data.getData(), "image/*");
                 // 下面这个crop=true是设置在开启的Intent中设置显示的VIEW可裁剪
@@ -346,8 +321,6 @@ public class PersonalCenterFragment extends BaseFragment implements DatePickerDi
                 intent.putExtra("outputY", 150);
                 intent.putExtra("return-data", true);
                 startActivityForResult(intent, ACTION_GET_HEADER);
-            } else {
-                Toast.makeText(getContainerActivity(),"未选择任何图片~",Toast.LENGTH_SHORT).show();
             }
         } else if (requestCode == ACTION_GET_HEADER) {
             if (resultCode == Activity.RESULT_OK) {
@@ -371,12 +344,6 @@ public class PersonalCenterFragment extends BaseFragment implements DatePickerDi
                 }
             }
         }
-    }
-
-    public static String getConstellation(int month, int day) {
-
-        return day < dayArr[month - 1] ? constellationArr[month - 1] : constellationArr[month];
-//        return "哈哈";
     }
 
     private class MyAdapter extends BaseExpandableListAdapter {
@@ -482,32 +449,7 @@ public class PersonalCenterFragment extends BaseFragment implements DatePickerDi
                 holder.actionChange.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        MainActivity.BASE_GLOBAL_DATA.setCurClassID(item.getClassID());
-                        MainActivity.BASE_GLOBAL_DATA.setCurClassName(item.getName());
-
-
-                        SharedPreferences sharedPreferences = getContainerActivity().getSharedPreferences(AppConst.SHARE_PREFERENCE_NAME, Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString(AppConst.CUR_CLASS_ID, item.getClassID());
-                        editor.putString(AppConst.CUR_CLASS_NAME, item.getName());
-                        editor.apply();
-
-                        userPersonalInfo.setCurClassId(item.getClassID());
-                        userPersonalInfo.setCurClassName(item.getName());
-                        userPersonalInfo.update(userPersonalInfo.getId());
-
-                        //更新用户信息中的当前班级
-                        AVObject curClassUpdate;
-                        AVQuery<AVObject> query = new AVQuery<>("UserToCurClass");
-                        try {
-                            curClassUpdate = query.get(sharedPreferences.getString(AppConst.USER_TO_CURCLASS,""));
-                            curClassUpdate.put("curClassId", item.getClassID());
-                            curClassUpdate.put("curClassName", item.getName());
-                            curClassUpdate.saveInBackground();
-                        } catch (AVException e) {
-                            e.printStackTrace();
-                        }
-
+                        LocalDataBaseHelper.INSTANCE.changeCurClass(getContainerActivity(),item.getClassID(),item.getName(),userPersonalInfo);
                         getContainerActivity().finish();
                     }
                 });
