@@ -100,8 +100,6 @@ public class MainActivity extends FragmentActivity implements SlideView.OnSlideL
 
     private static final SimpleDateFormat DATE_FORMAT_FULL = new SimpleDateFormat("yyyyMMddHHmmss", Locale.CHINA);
 
-//    private static final String TAG = "MainActivity";
-
     public static final BaseGlobalData BASE_GLOBAL_DATA = new BaseGlobalData();
 
     private FrameLayout mainContainer;
@@ -144,6 +142,9 @@ public class MainActivity extends FragmentActivity implements SlideView.OnSlideL
 
     private UserObject mineObject;
 
+    //标识是否有新的公告数据
+    public static boolean hasNewAnnouncement = false;
+
     //聊天相关
     private List<RecentMessageObject> recentMessages;
 
@@ -154,13 +155,7 @@ public class MainActivity extends FragmentActivity implements SlideView.OnSlideL
     //当前唯一Activity 的实例
     public static MainActivity MainActivityInstance;
 
-//    private MotionEvent downEvent;
-
     private ExcelDataWrapper tempExcelDataWrapper;
-
-    private boolean isActionsMenuExpanded = false;
-
-//    private ImageView redXCover;
 
     private class ExcelDataWrapper {
         private String modelName;
@@ -221,7 +216,6 @@ public class MainActivity extends FragmentActivity implements SlideView.OnSlideL
         ListViewCompat chattingListView = (ListViewCompat) findViewById(R.id.list_view);
         drawerLayout = ((DrawerLayout) findViewById(R.id.drawer_layout));
         ImageView drawerToggle = (ImageView) findViewById(R.id.drawer_toggle);
-//        redXCover = (ImageView) findViewById(R.id.main_cover_red_x);
 
         headerView = (LinearLayout) findViewById(R.id.main_ll_header);
         smallHeaderView = (LinearLayout) findViewById(R.id.main_ll_small_header);
@@ -238,19 +232,16 @@ public class MainActivity extends FragmentActivity implements SlideView.OnSlideL
         roundImageView.setImageResource(R.drawable.default_ic_contact);
         userNameTextView.setText(BASE_GLOBAL_DATA.getUserRealName());
         coverPage.setVisibility(View.GONE);
-//        new LoadRedXDrawable().execute();
 
         //初始化FloatingMenu
         functionFloatingMenu.setOnFloatingActionsMenuUpdateListener(new FloatingActionsMenu.OnFloatingActionsMenuUpdateListener() {
             @Override
             public void onMenuExpanded() {
-                isActionsMenuExpanded = true;
                 coverPage.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onMenuCollapsed() {
-                isActionsMenuExpanded = false;
                 coverPage.setVisibility(View.GONE);
             }
         });
@@ -542,9 +533,7 @@ public class MainActivity extends FragmentActivity implements SlideView.OnSlideL
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 position -= 1; //因为加了一个Clickable header，所有就多出一个Item
-//                if (downEvent != null) {
-//                    ((MyRippleView) view.findViewById(R.id.more)).animateRipple(downEvent.getX(), downEvent.getY() - view.getY());
-//                }
+
                 RecentMessageObject item = recentMessages.get(position);
                 int type = item.getType();
                 if (type != RecentMessageObject.TYPE_EXCEL) {
@@ -713,18 +702,7 @@ public class MainActivity extends FragmentActivity implements SlideView.OnSlideL
 
     }
 
-//    private class LoadRedXDrawable extends AsyncTask<Void,Void,Drawable> {
-//
-//        @Override
-//        protected Drawable doInBackground(Void... params) {
-//            return FlareBitmapUtils.INSTANCE.getRedXDrawable();
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Drawable drawable) {
-//            redXCover.setBackground(drawable);
-//        }
-//    }
+
 
     private void closeDrawerByDelay() {
         drawerLayout.postDelayed(new Runnable() {
@@ -899,8 +877,6 @@ public class MainActivity extends FragmentActivity implements SlideView.OnSlideL
         return super.onKeyDown(keyCode, event);
     }
 
-    private boolean isCreatorOrManager;
-
     private void reloadUI() {
         /*获取各项控件实例*/
         final ImageView mineClassHeaderImageView = (ImageView) findViewById(R.id.iv_main_min_class_header);
@@ -929,7 +905,6 @@ public class MainActivity extends FragmentActivity implements SlideView.OnSlideL
             mineClassHeaderImageView.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-//                    BitmapUtils.INSTANCE.loadBitmap(mineClassHeaderImageView, curClass.getHeaderPath());
                     if (curClass.getHeaderPath().equals("")) {
                         mineClassHeaderImageView.setImageResource(R.drawable.default_ic_mine_class);
                     } else {
@@ -951,7 +926,7 @@ public class MainActivity extends FragmentActivity implements SlideView.OnSlideL
             //判断是否有权限使用通知/消息录制/公告
             List<ManagerObject> managers = DataSupport.where("classobject_id=?",String.valueOf(curClass.getId())).find(ManagerObject.class);
             String creator = curClass.getCreator();
-            isCreatorOrManager = false;
+            boolean isCreatorOrManager = false;
             if (creator.equals(BASE_GLOBAL_DATA.getUserID())) {
                 isCreatorOrManager = true;
             } else {
@@ -1039,9 +1014,10 @@ public class MainActivity extends FragmentActivity implements SlideView.OnSlideL
                             //toDeleteObjects 剩下的就是要被删除的
                             for (String id : toDeleteObjects) {
                                 DataSupport.deleteAll(AnnouncementObject.class,"networkId=?",id);
+                                hasNewAnnouncement = true;
                             }
 
-                            //toAddObjects 剩下的就是要被添加的，这里能被执行到的可能性不大，除了第一次加入班级
+                            //toAddObjects 剩下的就是要被添加的
                             for (String id : toAddObjects) {
                                 for (AVObject object : list) {
                                     if (object.getObjectId().equals(id)) {
@@ -1056,6 +1032,7 @@ public class MainActivity extends FragmentActivity implements SlideView.OnSlideL
                                         announcementObject.setTitle(object.getString("title"));
                                         announcementObject.setContent(object.getString("content"));
                                         announcementObject.save();
+                                        hasNewAnnouncement = true;
                                     }
                                 }
                             }
@@ -1063,11 +1040,11 @@ public class MainActivity extends FragmentActivity implements SlideView.OnSlideL
                             //如果网络上已经没有了公告数据，直接删除所有的本地数据
                             for (AnnouncementObject object : announcements) {
                                 DataSupport.delete(AnnouncementObject.class,object.getId());
+                                hasNewAnnouncement = true;
                             }
                         }
                     } else {
                         e.printStackTrace();
-//                        NormalUtils.INSTANCE.showError(MainActivity.this,e);
                     }
                 }
             });
@@ -1226,7 +1203,6 @@ public class MainActivity extends FragmentActivity implements SlideView.OnSlideL
             super.handleMessage(msg);
             MainActivity activity = weakReference.get();
             if (activity == null){
-                //Activity已经回收，无需再处理UI了
                 return ;
             }
             //检查消息队列并移除未发送的消息，这主要是避免在复杂环境下消息出现重复等问题。
@@ -1235,15 +1211,21 @@ public class MainActivity extends FragmentActivity implements SlideView.OnSlideL
             }
             switch (msg.what) {
                 case MSG_UPDATE_IMAGE:
-                    currentItem++;
-                    activity.announcementsViewPager.setCurrentItem(currentItem);
-                    if (activity.announcements.size() == 0 || activity.announcements.size() == 1) {
+                    int size = activity.announcements.size();
+                    if (size >= 2) {
                         currentItem++;
                         activity.announcementsViewPager.setCurrentItem(currentItem);
-                        return;
+                        //准备下次播放
+                        activity.handler.sendEmptyMessageDelayed(MSG_UPDATE_IMAGE, MSG_DELAY);
+                    } else {
+                        if (hasNewAnnouncement) {
+                            currentItem++;
+                            activity.announcementsViewPager.setCurrentItem(currentItem);
+                            currentItem++;
+                            activity.announcementsViewPager.setCurrentItem(currentItem);
+                            hasNewAnnouncement = false;
+                        }
                     }
-                    //准备下次播放
-                    activity.handler.sendEmptyMessageDelayed(MSG_UPDATE_IMAGE, MSG_DELAY);
                     break;
                 case MSG_KEEP_SILENT:
                     //只要不发送消息就暂停了

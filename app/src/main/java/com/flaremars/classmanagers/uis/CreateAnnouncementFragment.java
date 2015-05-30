@@ -55,7 +55,7 @@ public class CreateAnnouncementFragment extends BaseFragment implements DatePick
     }
 
     public CreateAnnouncementFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -88,7 +88,7 @@ public class CreateAnnouncementFragment extends BaseFragment implements DatePick
                 final String content = contentEditText.getText().toString();
 
                 if (title.equals("") || content.equals("")) {
-                    Toast.makeText(getContainerActivity(),"标题和内容都不可为空哦~",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContainerActivity(),"标题和内容都不可为空",Toast.LENGTH_LONG).show();
                     return;
                 }
 
@@ -113,6 +113,8 @@ public class CreateAnnouncementFragment extends BaseFragment implements DatePick
                             announcementObject.setTitle(title);
                             announcementObject.setContent(content);
                             announcementObject.save();
+
+                            MainActivity.hasNewAnnouncement = true;
 
                             Intent intent = new Intent(getContainerActivity(), MainActivity.class);
                             startActivity(intent);
@@ -156,13 +158,13 @@ public class CreateAnnouncementFragment extends BaseFragment implements DatePick
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
     }
-
+    
     @Override
     String fragmentTitle() {
         return "新公告";

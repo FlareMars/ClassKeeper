@@ -148,6 +148,7 @@ public class AnnouncementListFragment extends BaseFragment {
                                             //删除本地公告数据
                                             DataSupport.delete(AnnouncementObject.class, object.getId());
                                             list.remove(object);
+                                            MainActivity.hasNewAnnouncement = true;
                                             adapter.notifyDataSetChanged();
                                         }
                                     });
