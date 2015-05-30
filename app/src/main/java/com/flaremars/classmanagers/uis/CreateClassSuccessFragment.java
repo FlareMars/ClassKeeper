@@ -43,7 +43,7 @@ public class CreateClassSuccessFragment extends BaseFragment {
     }
 
     public CreateClassSuccessFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -93,6 +93,7 @@ public class CreateClassSuccessFragment extends BaseFragment {
 
         final UserPersonalInfo userPersonalInfo = DataSupport.where("userId=?",meUserId).find(UserPersonalInfo.class).get(0);
         final ClassObject classObject = DataSupport.where("classID=?", classID).find(ClassObject.class).get(0);
+
         if (userPersonalInfo.getAcademy() == null || userPersonalInfo.getAcademy().equals("")) {
             String format = "您所在的学校/学院信息为:\n%s\n%s";
             final Dialog dialog = new Dialog(getContainerActivity(),"修改信息",

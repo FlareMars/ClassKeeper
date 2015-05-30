@@ -51,8 +51,6 @@ import java.util.Map;
 
 public class CreateClassFragment extends BaseFragment {
 
-//    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMddHHmmss", Locale.CHINA);
-
     private TextView academySelectedTextView;
 
     private TextView schoolSelectedTextView;
@@ -132,7 +130,6 @@ public class CreateClassFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        Bmob.initialize(getContainerActivity(),AppConst.APP_ID);
         selectedSchool = "武汉理工大学";
     }
 
@@ -209,6 +206,8 @@ public class CreateClassFragment extends BaseFragment {
             public void onClick(View v) {
                 createButton.setEnabled(false);
                 final String newClassName = newClassNameEditText.getText().toString();
+                final String academy = academySelectedTextView.getText().toString();
+
                 if (newClassName.equals("")) {
                     Toast.makeText(getContainerActivity(),"班级名不能为空~",Toast.LENGTH_LONG).show();
                     return;
@@ -217,6 +216,8 @@ public class CreateClassFragment extends BaseFragment {
 
                 Map<String,String> parameters = new HashMap<>();
                 parameters.put("school",selectedSchool);
+
+                //调用云端代码获取classCode(1)
                 AVCloud.callFunctionInBackground("getClassCode", parameters, new FunctionCallback<String>() {
                     public void done(final String result, AVException e) {
                         if (e == null) {
@@ -228,13 +229,15 @@ public class CreateClassFragment extends BaseFragment {
                                 return;
                             }
 
+                            //填充初始化班级成员列表
                             List<String> memberIds = new ArrayList<>();
                             memberIds.add(creator.getUserId());
 
+                            //填充新建会话的类别
                             Map<String, Object> attr = new HashMap<>();
                             attr.put("type", AppConst.ConversationType_Group);
-                            final String academy = academySelectedTextView.getText().toString();
 
+                            //创建群聊会话（子群）(2)
                             CMApplication.imClient.createConversation(memberIds, "【" + newClassName + "】" + "全体成员",
                                     attr, new AVIMConversationCreatedCallback() {
                                         @Override
@@ -249,15 +252,16 @@ public class CreateClassFragment extends BaseFragment {
                                                 newCMClass.put("academy", academy);
                                                 newCMClass.put("studentCount", 1);
                                                 newCMClass.put("managers", new ArrayList<String>());
+                                                newCMClass.put("allMembersConversation", avimConversation.getConversationId());
                                                 AVRelation<AVUser> members = newCMClass.getRelation("members");
                                                 members.add(avUser);
-                                                //全员子群
-                                                newCMClass.put("allMembersConversation", avimConversation.getConversationId());
 
+                                                //写入网络班级对象(3)
                                                 newCMClass.saveInBackground(new SaveCallback() {
                                                     @Override
                                                     public void done(AVException e) {
                                                         if (e == null) {
+                                                            //填充会话的关键属性
                                                             Map<String, Object> attr = new HashMap<>();
                                                             attr.put("type", AppConst.ConversationType_Group);
                                                             attr.put("classId", newCMClass.getObjectId());
@@ -345,6 +349,7 @@ public class CreateClassFragment extends BaseFragment {
                                                                 }
                                                             });
 
+                                                            //关闭BeforeMainActivity
                                                             Intent finishActivityBroadCast = new Intent("FRAGMENT_TO_FINISH");
                                                             getContainerActivity().sendBroadcast(finishActivityBroadCast);
 
@@ -352,16 +357,19 @@ public class CreateClassFragment extends BaseFragment {
                                                             getContainerActivity().replaceFragment(CreateClassSuccessFragment.newInstance(classObject.getClassCode(),
                                                                     classObject.getName(), classObject.getClassID()), false);
                                                         } else {
+                                                            NormalUtils.INSTANCE.showErrorLog(getContainerActivity(),e);
                                                             NormalUtils.INSTANCE.showError(getContainerActivity(), e);
                                                         }
                                                     }
                                                 });
                                             } else {
+                                                NormalUtils.INSTANCE.showErrorLog(getContainerActivity(),e);
                                                 NormalUtils.INSTANCE.showError(getContainerActivity(), e);
                                             }
                                         }
                                     });
                         } else {
+                            NormalUtils.INSTANCE.showErrorLog(getContainerActivity(),e);
                             NormalUtils.INSTANCE.showError(getContainerActivity(),e);
                         }
                     }
@@ -415,25 +423,6 @@ public class CreateClassFragment extends BaseFragment {
             }
         });
         return view;
-    }
-
-    private String getCode() {
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss", Locale.CHINA);
-//        AVQuery<AVObject> countClass = new AVQuery<>("CMClassObject");
-//        countClass.whereEqualTo("school","武汉理工大学");
-//        try {
-//            countClass.countInBackground(new CountCallback() {
-//                @Override
-//                public void done(int i, AVException e) {
-//
-//                }
-//            });
-//            DecimalFormat decimalFormat = new DecimalFormat("00000");
-//            return "whut" + decimalFormat.format(count);
-//        } catch (AVException e) {
-//            e.printStackTrace()
-//        };
-        return "whut" + (int)(Math.random() * 10000);
     }
 
     @Override
