@@ -434,6 +434,6 @@ public class LocalPicturesActivity extends FragmentActivity implements LoaderMan
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putLong("last_update_local_pictures",new Date().getTime());
         editor.apply();
-        BitmapUtils.INSTANCE.fluchCache();
+        BitmapUtils.INSTANCE.flushCache();
     }
 }

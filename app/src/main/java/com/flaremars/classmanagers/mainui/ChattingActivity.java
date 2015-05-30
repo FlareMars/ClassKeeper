@@ -1065,7 +1065,7 @@ public class ChattingActivity extends FragmentActivity {
                     String inClass = targetClass.getClassID();
                     AVIMImageMessage message = null;
                     try {
-                        String targetPath = BitmapUtils.INSTANCE.getLocalThumnail(tempPath);
+                        String targetPath = BitmapUtils.INSTANCE.getLocalThumbnail(tempPath);
                         AVFile imgFile = AVFile.withAbsoluteLocalPath(new File(tempPath).getName(),targetPath);
                         BitmapFactory.Options options = new BitmapFactory.Options();
                         options.inJustDecodeBounds = true;
@@ -1180,7 +1180,7 @@ public class ChattingActivity extends FragmentActivity {
                             String inClass = targetClass.getClassID();
                             AVIMImageMessage message = null;
                             try {
-                                String targetPath = BitmapUtils.INSTANCE.getLocalThumnail(imgPath);
+                                String targetPath = BitmapUtils.INSTANCE.getLocalThumbnail(imgPath);
                                 AVFile imgFile = AVFile.withAbsoluteLocalPath(imgName,targetPath);
                                 BitmapFactory.Options options = new BitmapFactory.Options();
                                 options.inJustDecodeBounds = true;

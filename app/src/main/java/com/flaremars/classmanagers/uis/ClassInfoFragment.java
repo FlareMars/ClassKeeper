@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -17,7 +16,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
@@ -37,6 +35,7 @@ import com.flaremars.classmanagers.model.UserObject;
 import com.flaremars.classmanagers.model.UserPersonalInfo;
 import com.flaremars.classmanagers.utils.BitmapUtils;
 import com.flaremars.classmanagers.utils.FlareBitmapUtils;
+import com.flaremars.classmanagers.utils.LocalDataBaseHelper;
 import com.flaremars.classmanagers.utils.MessagePostUtil;
 import com.flaremars.classmanagers.utils.NormalUtils;
 import com.flaremars.classmanagers.utils.UploadUtils;
@@ -52,8 +51,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class ClassInfoFragment extends BaseFragment {
-
-    private static int ACTION_GET_HEADER = 7;
 
     private static int ACTION_LOAD_IMAGE = 8;
 
@@ -84,7 +81,7 @@ public class ClassInfoFragment extends BaseFragment {
     }
 
     public ClassInfoFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -127,17 +124,19 @@ public class ClassInfoFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_class_info, container, false);
-        managersTextView = (TextView) view.findViewById(R.id.class_info_managers);
         TextView baseInfoTextView = (TextView) view.findViewById(R.id.class_info_base);
         TextView creatorTextView = (TextView) view.findViewById(R.id.class_info_creator);
         TextView timeTextView = (TextView) view.findViewById(R.id.class_info_time);
         TextView idTextView = (TextView) view.findViewById(R.id.class_info_number);
         roundImageView = (RoundImageView) view.findViewById(R.id.class_info_pic);
+        managersTextView = (TextView) view.findViewById(R.id.class_info_managers);
 
         baseInfoTextView.setText(targetClassObject.getInSchool() + " | " + targetClassObject.getInAcademy() + "\n" +
                 targetClassObject.getName() + " " + targetClassObject.getTotalPeopleCount() + "人");
+        timeTextView.setText(new SimpleDateFormat("yyyy年MM月dd日", Locale.CHINA).format(targetClassObject.getTime()));
+        idTextView.setText(targetClassObject.getClassCode());
 
-
+        //获取创建者数据
         List<UserObject> tempCreator = DataSupport.where("userId=?",targetClassObject.getCreator()).find(UserObject.class);
         UserObject creator = null;
         if (tempCreator.size() != 0) {
@@ -149,16 +148,14 @@ public class ClassInfoFragment extends BaseFragment {
             creatorTextView.setText(creator.getUserRealName());
         }
 
-        timeTextView.setText(new SimpleDateFormat("yyyy年MM月dd日", Locale.CHINA).format(targetClassObject.getTime()));
-        idTextView.setText(targetClassObject.getClassCode());
-
+        //显示班级头像
         if (targetClassObject.getHeaderPath().equals("")) {
             roundImageView.setImageResource(R.drawable.pic_testimg);
         } else {
-//            PictureObject pictureObject = DataSupport.where("pictureId=?",targetClassObject.getHeaderPath()).find(PictureObject.class).get(0);
             FlareBitmapUtils.INSTANCE.loadBitmap(roundImageView,targetClassObject.getHeaderPath());
         }
 
+        //切换班级
         view.findViewById(R.id.class_info_change).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -166,32 +163,10 @@ public class ClassInfoFragment extends BaseFragment {
                 dialog.setOnConfirmClickListener(new ChangeClassDialog.OnConfirmClickListener() {
                     @Override
                     public void onConfirmClick(final ClassObject item) {
-                        MainActivity.BASE_GLOBAL_DATA.setCurClassID(item.getClassID());
-                        MainActivity.BASE_GLOBAL_DATA.setCurClassName(item.getName());
-                        SharedPreferences sharedPreferences = getContainerActivity().getSharedPreferences(AppConst.SHARE_PREFERENCE_NAME, Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString(AppConst.CUR_CLASS_ID, item.getClassID());
-                        editor.putString(AppConst.CUR_CLASS_NAME, item.getName());
-                        editor.apply();
-
                         UserPersonalInfo userPersonalInfo = DataSupport.where("userId=?",MainActivity.BASE_GLOBAL_DATA.getUserID()).
                                 find(UserPersonalInfo.class).get(0);
-                        userPersonalInfo.setCurClassId(item.getClassID());
-                        userPersonalInfo.setCurClassName(item.getName());
-                        userPersonalInfo.update(userPersonalInfo.getId());
-
-                        //更新用户信息中的当前班级
-                        AVQuery<AVObject> query = new AVQuery<>("UserToCurClass");
-                        query.getInBackground(sharedPreferences.getString(AppConst.USER_TO_CURCLASS, ""), new GetCallback<AVObject>() {
-                            @Override
-                            public void done(AVObject avObject, AVException e) {
-                                if (e == null) {
-                                    avObject.put("curClassId", item.getClassID());
-                                    avObject.put("curClassName", item.getName());
-                                    avObject.saveInBackground();
-                                }
-                            }
-                        });
+                        LocalDataBaseHelper.INSTANCE.changeCurClass(getContainerActivity(),item.getClassID(),item.getName(),
+                                userPersonalInfo);
 
                         Intent i = new Intent(getActivity(), ContainerActivity.class);
                         Bundle bundle = new Bundle();
@@ -206,6 +181,7 @@ public class ClassInfoFragment extends BaseFragment {
             }
         });
 
+        //如果是创建者或者管理员，才有资格换头像
         roundImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -225,14 +201,12 @@ public class ClassInfoFragment extends BaseFragment {
             for (ManagerObject manager : managers) {
                 curManagers.add(manager.getManagerID());
             }
-        }
-//        new LoadManagersTask().execute(targetClassID);
 
-        if (isCreator) {
+            //如果是创建者，允许进行管理员更换
             managersTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ChangeManagerDialog dialog2 = ChangeManagerDialog.getManagerDialog(targetClassID, managers);
+                    ChangeManagerDialog dialog2 = ChangeManagerDialog.getManagerDialog(managers);
                     dialog2.show(getFragmentManager(), "tag_change_manager_dialog");
                     dialog2.setOnDismissListener(new ChangeManagerDialog.OnManagerDialogDismissListener() {
                         @Override
@@ -251,6 +225,7 @@ public class ClassInfoFragment extends BaseFragment {
             managersTextView.setOnClickListener(null);
         }
 
+
         //预先获取网络班级信息对象
         if (!targetClassObject.getClassID().equals("")) {
             AVQuery<AVObject> query = new AVQuery<>("CMClassObject");
@@ -259,6 +234,8 @@ public class ClassInfoFragment extends BaseFragment {
                 public void done(AVObject avObject, AVException e) {
                     if (e == null) {
                         cmClassObject = avObject;
+
+                        //获取当前管理员列表
                         List<String> values = cmClassObject.getList("managers");
                         if (values == null) {
                             values = new ArrayList<>();
@@ -289,7 +266,7 @@ public class ClassInfoFragment extends BaseFragment {
                             managersTextView.setText(sb.toString());
                         }
                     } else {
-                        Log.e("TAG", e.getMessage() + " " + e.getCode());
+                        NormalUtils.INSTANCE.showErrorLog(getContainerActivity(),e);
                     }
                 }
             });
@@ -299,6 +276,7 @@ public class ClassInfoFragment extends BaseFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        int ACTION_GET_HEADER = 7;
         if (requestCode == ACTION_LOAD_IMAGE) {
             if (resultCode == Activity.RESULT_OK && data != null) {
                 /*start to cut photo*/
@@ -314,8 +292,6 @@ public class ClassInfoFragment extends BaseFragment {
                 intent.putExtra("outputY", 150);
                 intent.putExtra("return-data", true);
                 startActivityForResult(intent, ACTION_GET_HEADER);
-            } else {
-                Toast.makeText(getContainerActivity(),"未选择任何图片~",Toast.LENGTH_LONG).show();
             }
         } else if (requestCode == ACTION_GET_HEADER) {
             if (resultCode == Activity.RESULT_OK) {
@@ -452,8 +428,6 @@ public class ClassInfoFragment extends BaseFragment {
 
         private OnManagerDialogDismissListener listener;
 
-        private String targetClassID;
-
         public interface OnManagerDialogDismissListener {
             void onManagerDialogDismiss();
         }
@@ -472,12 +446,11 @@ public class ClassInfoFragment extends BaseFragment {
             instance.listener.onManagerDialogDismiss();
         }
 
-        public static ChangeManagerDialog getManagerDialog (String targetClassID ,List<ManagerObject> items) {
+        public static ChangeManagerDialog getManagerDialog (List<ManagerObject> items) {
             if (instance == null) {
                 instance = new ChangeManagerDialog();
                 instance.setStyle(DialogFragment.STYLE_NO_TITLE,0);
             }
-            instance.targetClassID = targetClassID;
             instance.items = items;
             return instance;
         }
@@ -546,7 +519,6 @@ public class ClassInfoFragment extends BaseFragment {
                 viewHolder.deleteBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        DataSupport.delete(ManagerObject.class,item.getId());
                         items.remove(item);
                         MyAdapter.this.notifyDataSetChanged();
                         isManagerChanged = true;
@@ -561,11 +533,11 @@ public class ClassInfoFragment extends BaseFragment {
                                  Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_change_manager_dialog, container, false);
             ListView listView = (ListView) view.findViewById(R.id.lv_change_manager_dialog_content);
+            ImageView addManagerBtn = (ImageView) view.findViewById(R.id.btn_change_manager_add);
+
             listView.setDivider(null);
             adapter = new MyAdapter(getActivity(),items);
             listView.setAdapter(adapter);
-
-            ImageView addManagerBtn = (ImageView) view.findViewById(R.id.btn_change_manager_add);
 
             if (isCreator) {
                 addManagerBtn.setOnClickListener(new View.OnClickListener() {
@@ -593,16 +565,11 @@ public class ClassInfoFragment extends BaseFragment {
                         newManager.setManagerID(userObject.getUserId());
                         newManager.setName(userObject.getUserRealName());
                         if (!items.contains(newManager)) {
-//                            ClassObject target = DataSupport.where("classID=?",targetClassID).find(ClassObject.class).get(0);
-//                            newManager.setInClass(target);
-//                            newManager.save();
                             items.add(newManager);
                             isManagerChanged = true;
                         }
                     }
                     adapter.notifyDataSetChanged();
-                } else {
-                    Toast.makeText(getActivity(),"没有选择任何联系人",Toast.LENGTH_SHORT).show();
                 }
             }
         }
