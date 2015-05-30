@@ -1,10 +1,10 @@
 package com.flaremars.classmanagers.uis;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -26,10 +26,6 @@ import com.flaremars.classmanagers.utils.NormalUtils;
 import com.flaremars.classmanagers.views.MyRippleView;
 
 import java.lang.ref.WeakReference;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -37,8 +33,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegisterOneFragment extends Fragment {
-
-    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMddHHmmss", Locale.CHINA);
 
     private static final int MOBILE_IS_ALREADY_TOKEN = 214;
 
@@ -155,7 +149,7 @@ public class RegisterOneFragment extends Fragment {
                 user.signUpInBackground(new SignUpCallback() {
                     @Override
                     public void done(AVException e) {
-                        if (e == null) {
+                        if (e == null) { //普通情况下，根据注册时的手机号码，直接发送验证码
                             tempUserId = user.getUsername();
                             NormalUtils.INSTANCE.showToast(context, "已发出验证码，请注意查收");
 
@@ -163,7 +157,7 @@ public class RegisterOneFragment extends Fragment {
                         } else {
                             Log.e("TAG", e.getMessage());
                             if (e.getCode() == MOBILE_IS_ALREADY_TOKEN) {
-                                if (!user.isMobilePhoneVerified()) {
+                                if (!user.isMobilePhoneVerified()) { //如果是二次发送验证码，则进入此代码块
                                     AVUser.requestMobilePhoneVerifyInBackground(phoneNumber, new RequestMobileCodeCallback() {
                                         @Override
                                         public void done(AVException e) {
@@ -197,6 +191,7 @@ public class RegisterOneFragment extends Fragment {
                     NormalUtils.INSTANCE.showToast(context, "验证码不能为空");
                     return;
                 }
+
                 if (tempUserId == null || tempUserId.equals("")) {
                     tempUserId = phoneNumberEt.getText().toString();
                 }
@@ -209,15 +204,14 @@ public class RegisterOneFragment extends Fragment {
                         } else {
                             FragmentManager fragmentManager = context.getSupportFragmentManager();
                             FragmentTransaction transaction = fragmentManager.beginTransaction();
+                            transaction.setCustomAnimations(R.anim.push_left_in, R.anim.push_left_out,R.anim.push_left_in, R.anim.push_left_out);
                             transaction.replace(BeforeMainActivity.CONTAINER_ID, RegisterTowFragment.newInstance(phoneNumberEt.getText().toString(), tempUserId));
-//                            transaction.addToBackStack(null);
                             transaction.commit();
 
                             context.setCurFragment(BeforeMainActivity.FRAGMENT_REGISTER_TWO);
                         }
                     }
                 });
-
 
             }
         });

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
@@ -73,6 +74,10 @@ public enum  NormalUtils {
 
     public void showError(Context context,int code,String content){
         NormalUtils.INSTANCE.showToast(context, content + " 错误码为:" + code);
+    }
+
+    public void showErrorLog(Context context,AVException e) {
+        Log.e("Error",e.getMessage() + " 错误码：" + e.getCode());
     }
 
     public boolean isNetworkRegularWork(Context context) {

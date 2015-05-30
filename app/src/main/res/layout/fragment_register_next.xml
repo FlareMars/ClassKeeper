@@ -94,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_register_inputbox"
                 android:paddingTop="6dp"
-                android:paddingBottom="6dp"
+                android:paddingBottom="4dp"
                 android:paddingLeft="25dp"
                 android:hint="确认密码"
                 android:id="@+id/et_register_password_confirm"
