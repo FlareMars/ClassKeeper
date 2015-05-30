@@ -53,8 +53,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import cn.bmob.v3.BmobObject;
-
 public class JoinClassActivity extends FragmentActivity {
 
     private List<TempClassObject> items;
@@ -205,7 +203,9 @@ public class JoinClassActivity extends FragmentActivity {
         }
 
     }
-    private class TempClassObject extends BmobObject{
+
+    //基础班级消息显示实体类
+    private class TempClassObject {
         private String name;
 
         private int peopleNum;
@@ -363,19 +363,11 @@ public class JoinClassActivity extends FragmentActivity {
     private void joinClassTask(final String classID) {
         SharedPreferences preferences = getSharedPreferences(AppConst.SHARE_PREFERENCE_NAME, MODE_PRIVATE);
         final String userId = preferences.getString(AppConst.USER_ID, "");
-        if (userId == null || userId.equals("")) {
+        if (userId.equals("")) {
             Log.e("TAG","严重出错 ： 用户ID为空");
             return;
         }
-//        List<ClassObject> temps = DataSupport.findAll(ClassObject.class);
-//        List<String> classIds = new ArrayList<>();
-//        for (ClassObject temp : temps) {
-//            classIds.add(temp.getClassID());
-//        }
-//        if (classIds.size() > 0) {
-//          if (classIds.contains(classID)) {
-//          }
-//        }
+
         List<ClassObject> checkClass = DataSupport.where("classID=?",classID).find(ClassObject.class);
         if (checkClass.size() > 0) {
             ClassObject target = checkClass.get(0);

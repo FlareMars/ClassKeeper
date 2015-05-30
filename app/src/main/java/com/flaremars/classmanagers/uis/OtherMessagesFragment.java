@@ -29,9 +29,9 @@ import com.flaremars.classmanagers.model.NoticeObject;
 import com.flaremars.classmanagers.model.RecentMessageObject;
 import com.flaremars.classmanagers.model.AppConst;
 import com.flaremars.classmanagers.model.UserObject;
-import com.flaremars.classmanagers.utils.BitmapUtils;
 import com.flaremars.classmanagers.model.FragmentConst;
 import com.flaremars.classmanagers.model.MessageConst;
+import com.flaremars.classmanagers.utils.FlareBitmapUtils;
 import com.flaremars.classmanagers.utils.MessagePostUtil;
 
 import org.json.JSONException;
@@ -418,7 +418,7 @@ public class OtherMessagesFragment extends BaseFragment {
             }
             viewHolder.headImage.setImageBitmap(bitmap);
             if (item.getType() == RecentMessageObject.TYPE_PERSON) {
-                BitmapUtils.INSTANCE.loadBitmap(viewHolder.headImage,item.getImgPath());
+                FlareBitmapUtils.INSTANCE.loadBitmap(viewHolder.headImage,item.getImgPath());
             }
             return convertView;
         }

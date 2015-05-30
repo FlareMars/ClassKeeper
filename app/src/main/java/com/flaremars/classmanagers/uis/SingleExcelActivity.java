@@ -20,7 +20,6 @@ import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.flaremars.classmanagers.R;
 import com.flaremars.classmanagers.mainui.ChattingActivity;
 import com.flaremars.classmanagers.mainui.MainActivity;
-import com.flaremars.classmanagers.model.AppConst;
 import com.flaremars.classmanagers.model.MsgType;
 import com.flaremars.classmanagers.utils.NormalUtils;
 
@@ -28,9 +27,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import cn.bmob.push.BmobPush;
-import cn.bmob.v3.Bmob;
 
 public class SingleExcelActivity extends FragmentActivity {
 
@@ -45,8 +41,6 @@ public class SingleExcelActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_excel);
-        Bmob.initialize(this, AppConst.APP_ID);
-        BmobPush.startWork(this, AppConst.APP_ID);
 
         Intent data = getIntent();
         final String title = data.getStringExtra("single_excel_title");

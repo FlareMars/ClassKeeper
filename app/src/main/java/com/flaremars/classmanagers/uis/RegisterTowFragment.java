@@ -151,7 +151,8 @@ public class RegisterTowFragment extends Fragment {
                                     public void done(AVException e) {
                                         if (e == null) {
                                             final AVObject userToCurClass = new AVObject("UserToCurClass");
-                                            userToCurClass.put("userId", avUser.getObjectId());
+                                            final String userId = avUser.getObjectId();
+                                            userToCurClass.put("userId", userId);
                                             userToCurClass.put("curClassId", "");
                                             userToCurClass.put("curClassName", "");
                                             userToCurClass.saveInBackground(new SaveCallback() {
@@ -165,7 +166,7 @@ public class RegisterTowFragment extends Fragment {
 
                                                                 //保存用于别人查询的数据对象
                                                                 AVObject userInfo = new AVObject("CMUserInfo");
-                                                                userInfo.put("userId", avUser.getObjectId());
+                                                                userInfo.put("userId", userId);
                                                                 userInfo.put("sex", "男");
                                                                 userInfo.put("headerImg", "");
                                                                 userInfo.put("phone", avUser.getUsername());
@@ -181,7 +182,7 @@ public class RegisterTowFragment extends Fragment {
                                                                 editor.clear().apply();  //清空当前preference的数据，以免造成不必要的用户数据混乱
                                                                 editor = preferences.edit();
                                                                 editor.putString(AppConst.USER_REAL_NAME, realname);
-                                                                editor.putString(AppConst.USER_ID,avUser.getObjectId());
+                                                                editor.putString(AppConst.USER_ID,userId);
                                                                 editor.putString(AppConst.USER_NAME, username);
                                                                 editor.putString(AppConst.USER_PASSWORD, password);
                                                                 editor.putString(AppConst.USER_TO_CURCLASS, userToCurClass.getObjectId());
