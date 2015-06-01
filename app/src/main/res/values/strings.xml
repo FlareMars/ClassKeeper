@@ -37,5 +37,6 @@
     <string name="hint_search">请输入要搜索的文件名或联系人</string>
     <string name="title_activity_start_up">StartUpActivity</string>
     <string name="title_activity_reset_password">ResetPasswordActivity</string>
+    <string name="title_activity_user_interface_guide">UserInterfaceGuideActivity</string>
 
 </resources>

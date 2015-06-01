@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#6ca3e3"
+    >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/main_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/guide_page_three"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="15dp"
+        android:paddingTop="20dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_big_title"
+        android:text="通知已读反馈"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="145dp"
+        android:textSize="22sp"
+        android:textColor="@android:color/white"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_second_title"
+        android:text="已读未读一目了然\n确保重要消息的传达 一个都不能少"
+        android:layout_marginTop="29dp"
+        android:textColor="#88ffffff"
+        android:layout_alignTop="@+id/tv_big_title"
+        android:layout_alignLeft="@+id/tv_big_title"
+        android:layout_alignStart="@+id/tv_big_title" />
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bg_end_guide_button"
+        android:layout_alignTop="@+id/tv_second_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:padding="10dp"
+        android:visibility="gone"
+        android:id="@+id/iv_btn_end_guide"
+        />
+</RelativeLayout>

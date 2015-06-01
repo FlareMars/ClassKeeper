@@ -2,16 +2,15 @@ package com.flaremars.classmanagers.mainui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.flaremars.classmanagers.R;
+import com.flaremars.classmanagers.model.AppConst;
+import com.flaremars.classmanagers.uis.UserInterfaceGuideActivity;
 
 public class StartUpActivity extends Activity {
 
@@ -28,9 +27,16 @@ public class StartUpActivity extends Activity {
         secondTextView.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(StartUpActivity.this,BeforeMainActivity.class);
+                SharedPreferences sharedPreferences = StartUpActivity.this.getSharedPreferences(AppConst.SHARE_PREFERENCE_NAME,MODE_PRIVATE);
+                int startUpCount = sharedPreferences.getInt("start_up_count",0);
+                Intent intent;
+                if (startUpCount == 0) {
+                    intent = new Intent(StartUpActivity.this, UserInterfaceGuideActivity.class);
+                    sharedPreferences.edit().putInt("start_up_count",1).apply();
+                } else {
+                    intent = new Intent(StartUpActivity.this, BeforeMainActivity.class);
+                }
                 startActivity(intent);
-
                 StartUpActivity.this.finish();
             }
         },2500);

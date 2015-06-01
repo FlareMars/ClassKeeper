@@ -123,6 +123,10 @@
             android:name=".uis.ResetPasswordActivity"
             android:label="@string/title_activity_reset_password" >
         </activity>
+        <activity
+            android:name=".uis.UserInterfaceGuideActivity"
+            android:label="@string/title_activity_user_interface_guide" >
+        </activity>
     </application>
 
 </manifest>
