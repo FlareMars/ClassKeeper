@@ -83,7 +83,6 @@ public class FilesFragment extends BaseFragment {
             targetClass = getArguments().getString(AppConst.CLASS_ID);
             classObject = DataSupport.where("classID=?",targetClass).find(ClassObject.class).get(0);
         }
-//        Bmob.initialize(getContainerActivity(),AppConst.APP_ID);
     }
 
     @Override

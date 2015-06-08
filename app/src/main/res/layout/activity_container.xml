@@ -104,6 +104,16 @@
                 android:visibility="gone"
                 android:background="@drawable/selector_white_btn"
                 />
+            <com.flaremars.classmanagers.views.ProgressBarCircularIndeterminate
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="end|center_vertical"
+                android:id="@+id/main_container_upload_progress"
+                android:layout_marginRight="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@color/bg_normal"
+                android:visibility="gone"
+                />
             <ImageView
                 android:layout_width="42dp"
                 android:layout_height="42dp"

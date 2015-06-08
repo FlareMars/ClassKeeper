@@ -2,6 +2,7 @@ package com.flaremars.classmanagers.utils;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Handler;
@@ -183,6 +184,10 @@ public enum UploadUtils {
 
     private UploadHandler handler = new UploadHandler();
 
+    private static int curSize = 0;
+
+    private static int targetSize = 0;
+
     private static final int START_TO_UPLOAD = 0;
 
     private static final int PROGRESS_UPLOAD = 1;
@@ -190,10 +195,6 @@ public enum UploadUtils {
     private static class UploadHandler extends Handler {
 
         private UploadFinishedInternalListener listener;
-
-        private int curSize = 0;
-
-        private int targetSize = 0;
 
         @Override
         public void handleMessage(Message msg) {
@@ -214,6 +215,9 @@ public enum UploadUtils {
                         Log.e("TAG","finished~");
                         listener.onUploadFinished();
                         listener = null;
+
+                        Intent uploadFinishedBroadcast = new Intent("cm.action.upload_finished");
+                        CMApplication.GLOBAL_CONTEXT.sendBroadcast(uploadFinishedBroadcast);
                     }
 
                     isUploading = false;
@@ -309,8 +313,8 @@ public enum UploadUtils {
                                                                 classFile.save();
 
                                                                 //更新本地文件
-                                                                FileUtils.getInstance().updateLocalFile(classFile.getName(),classFile.getPath(),"上传到 " + targetClass.getName(),
-                                                                        classFile.getSize(),classFile.getType());
+                                                                FileUtils.getInstance().updateLocalFile(classFile.getName(), classFile.getPath(), "上传到 " + targetClass.getName(),
+                                                                        classFile.getSize(), classFile.getType());
 
                                                                 result.add(classFile);
 
@@ -323,8 +327,8 @@ public enum UploadUtils {
 //                                                                }
                                                             } else {
                                                                 isUploading = false;
-                                                                Log.e("TAG1",e.getMessage());
-                                                                NormalUtils.INSTANCE.showError(CMApplication.GLOBAL_CONTEXT,e);
+                                                                Log.e("TAG1", e.getMessage());
+                                                                NormalUtils.INSTANCE.showError(CMApplication.GLOBAL_CONTEXT, e);
                                                             }
                                                         }
                                                     });
@@ -336,8 +340,13 @@ public enum UploadUtils {
                                         });
                                     } else {
                                         isUploading = false;
-                                        NormalUtils.INSTANCE.showError(CMApplication.GLOBAL_CONTEXT,e);
+                                        NormalUtils.INSTANCE.showError(CMApplication.GLOBAL_CONTEXT, e);
                                     }
+                                }
+                            }, new ProgressCallback() {
+                                @Override
+                                public void done(Integer integer) {
+
                                 }
                             });
                         } catch (IOException e2) {
@@ -439,29 +448,6 @@ public enum UploadUtils {
                                         Message progressMsg = new Message();
                                         progressMsg.what = PROGRESS_UPLOAD;
                                         handler.sendMessage(progressMsg);
-//                                        if (finalI == size - 1) {
-//
-//                                            //更新本地相册
-//                                            List<AlbumsObject> temp = DataSupport.where("networkId=?",avObject.getObjectId()).
-//                                                    find(AlbumsObject.class);
-//                                            if (temp.size() > 0) {
-//                                                AlbumsObject targetLocalAlbum = temp.get(0);
-//                                                targetLocalAlbum.setFirstPhotoThumbnail(photoObjectIds.get(size - 1));
-//                                                targetLocalAlbum.setSizeOfPhotos(targetLocalAlbum.getSizeOfPhotos() + size);
-//                                                List<String> cur = avObject.getRealPhotoIds();
-//                                                cur.addAll(photoObjectIds);
-//                                                targetLocalAlbum.setRealPhotoFromList(cur);
-//                                                targetLocalAlbum.update(albumsObject.getId());
-//                                            }
-//
-//                                            //更新相册数据
-//                                            avObject.addAllUnique("realPhotoIds",photoObjectIds);
-//                                            avObject.increment("photoSize",size);
-//                                            avObject.setFirstPhotoThumbnail(photoObjectIds.get(size - 1));
-//                                            avObject.saveInBackground();
-//
-//                                            listener.onUploadFilesFinished(new ArrayList<FileObject>());
-//                                        }
                                     } else {
                                         isUploading = false;
                                         NormalUtils.INSTANCE.showError(CMApplication.GLOBAL_CONTEXT,e);

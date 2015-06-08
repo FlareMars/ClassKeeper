@@ -49,6 +49,9 @@ public class CustomView extends RelativeLayout{
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
+		if (isInEditMode()) {
+			return;
+		}
 		if(animation)
 			invalidate();
 	}

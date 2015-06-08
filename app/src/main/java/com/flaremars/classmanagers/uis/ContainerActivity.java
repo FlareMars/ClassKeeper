@@ -1,7 +1,11 @@
 package com.flaremars.classmanagers.uis;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -48,6 +52,7 @@ import com.flaremars.classmanagers.utils.MessagePostUtil;
 import com.flaremars.classmanagers.utils.NormalUtils;
 import com.flaremars.classmanagers.utils.UploadUtils;
 import com.flaremars.classmanagers.views.CircleLoadingView;
+import com.flaremars.classmanagers.views.ProgressBarCircularIndeterminate;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -117,6 +122,7 @@ public class ContainerActivity extends FragmentActivity {
                 replaceFragmentNoAnimation(ContactsFragment.newInstance(targetClass), isAddToBackStack);
                 break;
             case FRAGMENT_FILES:
+                checkUploadState();
                 targetClass = bundle.getString(AppConst.CLASS_ID);
                 isAddToBackStack = bundle.getBoolean(AppConst.NEED_ADD_TO_BACK_STACK);
                 replaceFragmentNoAnimation(FilesFragment.newInstance(targetClass), isAddToBackStack);
@@ -164,6 +170,7 @@ public class ContainerActivity extends FragmentActivity {
                 replaceFragmentNoAnimation(NoticeDetailFragment.newInstance(nameOfSender, time, content), false);
                 break;
             case FRAGMENT_PHOTOS:
+                checkUploadState();
                 String targetAlbumId = bundle.getString("target_album_id");
                 int targetClassId = bundle.getInt("targetClass");
                 replaceFragmentNoAnimation(PhotosFragment.newInstance(targetAlbumId,targetClassId), false);
@@ -330,7 +337,7 @@ public class ContainerActivity extends FragmentActivity {
         //这句很重要，只有它将Result分发给activity的Fragment
         super.onActivityResult(requestCode, resultCode, data);
         if (!NormalUtils.INSTANCE.isNetworkRegularWork(ContainerActivity.this)) {
-            NormalUtils.INSTANCE.showToast(ContainerActivity.this,"当前网络渣渣哒，操作失效~");
+            NormalUtils.INSTANCE.showToast(ContainerActivity.this,"网络错误，请检查网络配置");
             return;
         }
 
@@ -344,10 +351,10 @@ public class ContainerActivity extends FragmentActivity {
         switch (requestCode) {
             case SelectFilesActivity.ACTION_SELECT_FILES:
                 if (resultCode == Activity.RESULT_OK) {
-                    if (UploadUtils.INSTANCE.getUploadState()) {
-                        NormalUtils.INSTANCE.showToast(ContainerActivity.this,"对不起,当前尚有未完成的上传任务，不能进行上传任务");
-                        return;
-                    }
+//                    if (UploadUtils.INSTANCE.getUploadState()) {
+//                        NormalUtils.INSTANCE.showToast(ContainerActivity.this,"对不起,当前尚有未完成的上传任务，不能进行上传任务");
+//                        return;
+//                    }
                     try {
                         final JSONArray jsonArray = new JSONArray(data.getStringExtra("data"));
                         JSONObject object;
@@ -357,7 +364,8 @@ public class ContainerActivity extends FragmentActivity {
                             fileIds.add(object.getInt("file_id"));
                         }
                         Toast.makeText(this,"开始上传~",Toast.LENGTH_SHORT).show();
-                        loadingView.show(true);
+//                        loadingView.show(true);
+                        checkUploadState();
 
                         UploadUtils.INSTANCE.uploadClassFiles(fileIds, curClass, new UploadUtils.UploadFilesListener() {
                             @Override
@@ -525,10 +533,10 @@ public class ContainerActivity extends FragmentActivity {
                 break;
             case PhotosFragment.ACTION_UPLOAD_PHOTO:
                 if (resultCode == Activity.RESULT_OK) {
-                    if (UploadUtils.INSTANCE.getUploadState()) {
-                        NormalUtils.INSTANCE.showToast(ContainerActivity.this,"对不起,当前尚有未完成的上传任务，不能进行上传任务");
-                        return;
-                    }
+//                    if (UploadUtils.INSTANCE.getUploadState()) {
+//                        NormalUtils.INSTANCE.showToast(ContainerActivity.this,"对不起,当前尚有未完成的上传任务，不能进行上传任务");
+//                        return;
+//                    }
                     String targetAlbumId = getIntent().getExtras().getString("target_album_id");
                     final int targetClassId = getIntent().getExtras().getInt("targetClass");
                     try {
@@ -542,7 +550,8 @@ public class ContainerActivity extends FragmentActivity {
                         }
 
                         NormalUtils.INSTANCE.showToast(ContainerActivity.this, "开始上传~");
-                        loadingView.show(true);
+//                        loadingView.show(true);
+                        checkUploadState();
                         UploadUtils.INSTANCE.uploadClassPhotos(photoIds, targetAlbumObject, new UploadUtils.UploadFilesListener() {
                             @Override
                             public void onUploadFilesFinished(List<FileObject> fileIds) {
@@ -582,8 +591,12 @@ public class ContainerActivity extends FragmentActivity {
         titleView.setText(title);
     }
 
+    private List<Integer> targetActionView;
+
     /*显示指定的actionViews*/
     public void showActionViews(List<Integer> viewsId) {
+
+        this.targetActionView = viewsId;
 
         for (Integer i : actionViews) {
             findViewById(i).setVisibility(View.GONE);
@@ -598,6 +611,43 @@ public class ContainerActivity extends FragmentActivity {
 
     //记录当前activity是否在前台
     private boolean isFrontInScreen = true;
+
+    //如果当前后台存在下载进度，不允许点击上传
+    private void checkUploadState() {
+        if (UploadUtils.INSTANCE.getUploadState()) {
+            uploadReceiver = new UploadFinishReceiver();
+            registerReceiver(uploadReceiver,new IntentFilter("cm.action.upload_finished"));
+            findViewById(R.id.main_container_upload_photos).setVisibility(View.GONE);
+            findViewById(R.id.main_container_upload_file).setVisibility(View.GONE);
+
+            ProgressBarCircularIndeterminate progressBar = (ProgressBarCircularIndeterminate)findViewById(R.id.main_container_upload_progress);
+            progressBar.setVisibility(View.VISIBLE);
+        }
+    }
+
+    //处理当前有下载过程的情况
+    private class UploadFinishReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            findViewById(R.id.main_container_upload_progress).setVisibility(View.GONE);
+            if (targetActionView != null) {
+                for (Integer i2 : targetActionView) {
+                    findViewById(i2).setVisibility(View.VISIBLE);
+                }
+            }
+        }
+    }
+
+    private UploadFinishReceiver uploadReceiver = null;
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (uploadReceiver != null) {
+            unregisterReceiver(uploadReceiver);
+        }
+    }
 
     @Override
     protected void onPause() {

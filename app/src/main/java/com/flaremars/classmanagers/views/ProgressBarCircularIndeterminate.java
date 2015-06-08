@@ -10,6 +10,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.Log;
 
 public class ProgressBarCircularIndeterminate extends CustomView {
 	
@@ -33,12 +34,14 @@ public class ProgressBarCircularIndeterminate extends CustomView {
 			
 			//Set background Color
 			// Color by resource
-			int bacgroundColor = attrs.getAttributeResourceValue(ANDROIDXML,"background",-1);
-			if(bacgroundColor != -1){
-				setBackgroundColor(getResources().getColor(bacgroundColor));
+			int backgroundColor = attrs.getAttributeResourceValue(ANDROIDXML,"background",-1);
+            Log.e("TAG",backgroundColor + "");
+			if(backgroundColor != -1){
+				setBackgroundColor(getResources().getColor(backgroundColor));
 			}else{
 				// Color by hexadecimal
 				int background = attrs.getAttributeIntValue(ANDROIDXML, "background", -1);
+				Log.e("TAG",background + "");
 				if (background != -1)
 					setBackgroundColor(background);
 				else
@@ -57,7 +60,7 @@ public class ProgressBarCircularIndeterminate extends CustomView {
 	protected int makePressColor(){
 		int r = (this.backgroundColor >> 16) & 0xFF;
 		int g = (this.backgroundColor >> 8) & 0xFF;
-		int b = (this.backgroundColor >> 0) & 0xFF;
+		int b = (this.backgroundColor) & 0xFF;
 //		r = (r+90 > 245) ? 245 : r+90;
 //		g = (g+90 > 245) ? 245 : g+90;
 //		b = (b+90 > 245) ? 245 : b+90;
@@ -68,6 +71,9 @@ public class ProgressBarCircularIndeterminate extends CustomView {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
+        if (isInEditMode()) {
+            return;
+        }
 		if(!firstAnimationOver)
 			drawFirstAnimation(canvas);
 		if(cont > 0)
